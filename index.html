@@ -462,37 +462,40 @@ a { color: inherit; text-decoration: none; }
 .goal__actions { margin-top: 12px; display: flex; gap: 16px; font-size: 12px; }
 .goal__actions button { font-weight: 600; }
 
-/* NOTE CARD */
+/* NOTE CARD — editorial */
 .note {
   background: var(--paper);
   border: var(--border);
   border-radius: 18px;
-  padding: 16px;
-  display: flex; gap: 12px;
+  padding: 20px 22px;
   cursor: pointer;
-  transition: transform 0.12s, box-shadow 0.2s;
+  transition: transform 0.12s, box-shadow 0.2s, border-color 0.2s;
   box-shadow: var(--shadow-card);
 }
+.note:hover { border-color: var(--ink-200); }
 .note:active { transform: scale(0.99); }
-.note__body { flex: 1; min-width: 0; }
-.note__title-row { display: flex; align-items: center; gap: 6px; }
+.note__body { min-width: 0; }
+.note__time {
+  font-size: 10px; color: var(--ink-400);
+  margin: 0 0 8px;
+  font-weight: 600; letter-spacing: 0.08em;
+  display: flex; align-items: center;
+}
 .note__title {
   font-family: var(--serif); font-weight: 500;
-  font-size: 17px; letter-spacing: -0.015em;
+  font-size: 22px; line-height: 1.2;
+  letter-spacing: -0.022em;
   color: var(--ink-800); margin: 0;
   overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
 .note__excerpt {
-  font-size: 13px; color: var(--ink-500); margin: 6px 0 0;
+  font-family: var(--serif);
+  font-size: 15px; line-height: 1.55;
+  color: var(--ink-600); margin: 8px 0 0;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
-  overflow: hidden; white-space: pre-wrap; line-height: 1.5;
+  overflow: hidden; white-space: pre-wrap;
+  letter-spacing: -0.005em;
 }
-.note__time { font-size: 10px; color: var(--ink-400); margin: 10px 0 0; font-weight: 500; letter-spacing: 0.02em; }
-.note__pin {
-  width: 30px; height: 30px; border-radius: 8px; color: var(--ink-300);
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-}
-.note__pin:hover { color: var(--accent); }
 
 /* INPUTS */
 .label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-500); display: block; }
@@ -813,6 +816,186 @@ a { color: inherit; text-decoration: none; }
 .stack-tight > * + * { margin-top: 8px; }
 .stack-loose > * + * { margin-top: 20px; }
 
+/* NOTE EDITOR — full-screen editorial writing surface */
+.editor {
+  position: fixed; inset: 0;
+  background: var(--paper);
+  z-index: 55;
+  display: flex; flex-direction: column;
+  animation: editorIn 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+@keyframes editorIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.editor__top {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 18px 8px;
+  flex-shrink: 0;
+}
+.editor__top-left, .editor__top-right { display: flex; gap: 6px; align-items: center; }
+.editor__icon-btn {
+  width: 38px; height: 38px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ink-600);
+  transition: background 0.15s, color 0.15s;
+}
+.editor__icon-btn:hover { background: var(--ink-50); color: var(--ink-800); }
+.editor__icon-btn--active { color: var(--accent); }
+.editor__icon-btn--danger:hover { color: var(--red); background: rgba(194,65,12,0.08); }
+.editor__saved {
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--ink-400);
+  display: flex; align-items: center; gap: 6px;
+  padding: 0 8px;
+  transition: opacity 0.3s;
+}
+.editor__saved-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #10b981;
+}
+.editor__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 24px 24px;
+  display: flex; flex-direction: column;
+}
+@media (min-width: 540px) {
+  .editor {
+    inset: 24px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-pop);
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .editor__body { padding: 8px 56px 32px; }
+}
+.editor__title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 36px; line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--ink-800);
+  background: transparent;
+  border: 0; outline: none;
+  width: 100%;
+  margin: 12px 0 18px;
+  padding: 0;
+  resize: none;
+}
+.editor__title::placeholder { color: var(--ink-300); font-style: italic; font-weight: 400; }
+.editor__textarea {
+  font-family: var(--serif); font-weight: 400;
+  font-size: 18px; line-height: 1.75;
+  letter-spacing: -0.005em;
+  color: var(--ink-700);
+  background: transparent;
+  border: 0; outline: none;
+  width: 100%;
+  flex: 1;
+  resize: none;
+  padding: 0;
+  min-height: 200px;
+}
+.editor__textarea::placeholder { color: var(--ink-300); font-style: italic; }
+.editor__foot {
+  flex-shrink: 0;
+  padding: 12px 24px 14px;
+  border-top: var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 11px; color: var(--ink-400);
+  font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+  background: var(--paper);
+}
+@media (min-width: 540px) { .editor__foot { padding: 12px 56px 14px; } }
+
+/* ONBOARDING / WELCOME — full-screen first-run */
+.welcome {
+  position: fixed; inset: 0;
+  background: var(--bg);
+  display: flex; flex-direction: column;
+  align-items: stretch; justify-content: space-between;
+  padding: 56px 28px 36px;
+  z-index: 80;
+  animation: welcomeIn 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.welcome__brand {
+  font-family: var(--serif); font-style: italic; font-weight: 500;
+  font-size: 22px; letter-spacing: -0.02em;
+  color: var(--ink-800);
+}
+.welcome__brand::after { content: '.'; color: var(--accent); margin-left: -0.04em; }
+.welcome__hero {
+  margin-top: 36px;
+}
+.welcome__eyebrow {
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--ink-400);
+  margin: 0 0 14px;
+}
+.welcome__headline {
+  font-family: var(--serif); font-weight: 400;
+  font-size: 56px; line-height: 0.94;
+  letter-spacing: -0.045em;
+  color: var(--ink-800);
+  margin: 0;
+}
+.welcome__headline em { font-style: italic; }
+.welcome__lede {
+  font-family: var(--serif);
+  font-size: 17px; line-height: 1.55;
+  color: var(--ink-600);
+  margin: 22px 0 0;
+  max-width: 28ch;
+}
+.welcome__field { margin-top: 36px; }
+.welcome__label {
+  display: block;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-400);
+  margin-bottom: 10px;
+}
+.welcome__input {
+  display: block; width: 100%;
+  font-family: var(--serif); font-weight: 400;
+  font-size: 26px; letter-spacing: -0.02em;
+  color: var(--ink-800);
+  background: transparent;
+  border: 0; border-bottom: 1.5px solid var(--ink-200);
+  padding: 8px 0 12px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.welcome__input:focus { border-color: var(--ink-700); }
+.welcome__input::placeholder { color: var(--ink-300); font-style: italic; }
+.welcome__cta {
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px;
+  background: var(--ink-800); color: var(--on-ink);
+  padding: 16px 24px;
+  border-radius: 16px;
+  font-weight: 600; font-size: 15px;
+  width: 100%;
+  transition: transform 0.12s, background 0.15s;
+  letter-spacing: -0.005em;
+}
+.welcome__cta:active { transform: scale(0.98); }
+.welcome__skip {
+  text-align: center;
+  font-size: 12px; font-weight: 500;
+  color: var(--ink-400);
+  margin-top: 14px;
+  letter-spacing: 0.02em;
+}
+.welcome__skip button { color: var(--ink-500); font-weight: 600; }
+@keyframes welcomeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 /* INTRO HINT — shown until first log */
 .hint {
   display: flex; align-items: flex-start; gap: 10px;
@@ -862,25 +1045,29 @@ a { color: inherit; text-decoration: none; }
 .heatmap__legend-cells { display: flex; gap: 3px; }
 .heatmap__legend-cell { width: 9px; height: 9px; border-radius: 2px; }
 
-/* SETTINGS PAGE */
-.setting-section { margin-top: 24px; }
-.setting-section + .setting-section { margin-top: 28px; }
+/* SETTINGS PAGE — boutique */
+.setting-section { margin-top: 32px; }
+.setting-section:first-child { margin-top: 8px; }
+.setting-section + .setting-section { margin-top: 36px; }
 .setting-section__title {
-  font-family: var(--serif); font-weight: 500; font-style: italic;
-  font-size: 13px; letter-spacing: -0.005em;
-  color: var(--ink-500);
-  margin: 0 0 8px 4px;
+  font-family: var(--serif); font-weight: 400; font-style: italic;
+  font-size: 22px; letter-spacing: -0.02em;
+  color: var(--ink-700);
+  margin: 0 0 14px 2px;
   text-transform: lowercase;
+}
+.setting-section__title::before {
+  content: '— '; color: var(--ink-300); font-style: normal;
 }
 .setting-group {
   background: var(--surface);
   border: var(--border);
-  border-radius: 16px;
+  border-radius: 18px;
   overflow: hidden;
 }
 .setting-row {
   display: flex; align-items: center; gap: 14px;
-  padding: 14px 16px;
+  padding: 18px 20px;
   width: 100%;
   background: transparent;
   text-align: left;
@@ -891,12 +1078,14 @@ a { color: inherit; text-decoration: none; }
 .setting-row:hover { background: var(--ink-50); }
 .setting-row__label {
   flex: 1; min-width: 0;
-  font-size: 14px; font-weight: 500;
+  font-size: 15px; font-weight: 500;
   color: var(--ink-800);
+  letter-spacing: -0.01em;
 }
 .setting-row__sub {
   font-size: 12px; color: var(--ink-500);
-  font-weight: 400; margin-top: 2px;
+  font-weight: 400; margin-top: 3px;
+  letter-spacing: -0.005em;
 }
 .setting-row__value {
   font-size: 13px; color: var(--ink-500);
@@ -968,7 +1157,7 @@ a { color: inherit; text-decoration: none; }
 const ICONS = {
   Home:        '<path d="M3 9.5L12 3l9 6.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/>',
   ListChecks:  '<path d="m3 7 2 2 4-4"/><path d="m3 17 2 2 4-4"/><path d="M13 6h8"/><path d="M13 12h8"/><path d="M13 18h8"/>',
-  Target:      '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+  Target:      '<circle cx="12" cy="12" r="8"/><line x1="12" y1="3" x2="12" y2="6.5"/><line x1="12" y1="17.5" x2="12" y2="21"/><line x1="3" y1="12" x2="6.5" y2="12"/><line x1="17.5" y1="12" x2="21" y2="12"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/>',
   NotebookPen: '<path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4"/><path d="M2 6h4"/><path d="M2 10h4"/><path d="M2 14h4"/><path d="M2 18h4"/><path d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z"/>',
   Plus:        '<path d="M12 5v14"/><path d="M5 12h14"/>',
   X:           '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
@@ -992,24 +1181,24 @@ const ICONS = {
   Dumbbell:    '<line x1="6.5" y1="12" x2="17.5" y2="12"/><circle cx="4.5" cy="12" r="2.4" fill="currentColor" stroke="none"/><circle cx="19.5" cy="12" r="2.4" fill="currentColor" stroke="none"/>',
   BookOpen:    '<line x1="4.5" y1="8" x2="10.5" y2="8"/><line x1="13.5" y1="8" x2="19.5" y2="8"/><line x1="4.5" y1="12" x2="10.5" y2="12"/><line x1="13.5" y1="12" x2="19.5" y2="12"/><line x1="4.5" y1="16" x2="8.5" y2="16"/><line x1="15.5" y1="16" x2="19.5" y2="16"/>',
   Sparkles:    '<circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/>',
-  Brain:       '<path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"/><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/><path d="M3.477 10.896a4 4 0 0 1 .585-.396"/><path d="M19.938 10.5a4 4 0 0 1 .585.396"/><path d="M6 18a4 4 0 0 1-1.967-.516"/><path d="M19.967 17.484A4 4 0 0 1 18 18"/>',
-  Coffee:      '<path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1z"/><path d="M6 2v2"/><path d="M17 16h2a2 2 0 1 0 0-4h-2"/>',
-  Music:       '<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',
-  Code:        '<path d="m16 18 6-6-6-6"/><path d="m8 6-6 6 6 6"/>',
-  Heart:       '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>',
-  Footprints:  '<path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z"/><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z"/><path d="M16 17h4"/><path d="M4 13h4"/>',
-  Bike:        '<circle cx="18.5" cy="17.5" r="3.5"/><circle cx="5.5" cy="17.5" r="3.5"/><circle cx="15" cy="5" r="1"/><path d="M12 17.5V14l-3-3 4-3 2 3h2"/>',
-  Apple:       '<path d="M19 9c-2.5 0-3.5 1.5-5 1.5S11.5 9 9 9c-3 0-5 3-5 6 0 4.5 3 9 5 9 1.5 0 2-1 4-1s2.5 1 4 1c2 0 5-4.5 5-9 0-3-2-6-3-6Z"/><path d="M12 8c0-1 1-2 2-2"/><path d="M16 3c0 1-1 2-2 2"/>',
-  Briefcase:   '<path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/>',
-  Palette:     '<circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>',
-  Camera:      '<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/>',
-  Sun:         '<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>',
-  Moon:        '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>',
-  Droplet:     '<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/>',
-  Mountain:    '<path d="m8 3 4 8 5-5 5 15H2L8 3z"/>',
-  Trophy:      '<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>',
-  Flag:        '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" x2="4" y1="22" y2="15"/>',
-  Smile:       '<circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" x2="9.01" y1="9" y2="9"/><line x1="15" x2="15.01" y1="9" y2="9"/>',
+  Brain:       '<path d="M7 8 Q 4 8 4 12 Q 4 17 9 18 Q 12 19 12 19 Q 12 19 15 18 Q 20 17 20 12 Q 20 8 17 8 Q 16 5 12 5 Q 8 5 7 8 Z"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/>',
+  Coffee:      '<path d="M5 11 v5 a3 3 0 0 0 3 3 h6 a3 3 0 0 0 3-3 v-5 Z"/><path d="M17 12.5 h2 a2 2 0 0 1 0 4 h-2"/><circle cx="11" cy="6.5" r="1.2" fill="currentColor" stroke="none"/>',
+  Music:       '<line x1="14" y1="5" x2="14" y2="16.5"/><ellipse cx="11" cy="17" rx="3" ry="2.4" fill="currentColor" stroke="none"/>',
+  Code:        '<polyline points="7 8 3.5 12 7 16"/><polyline points="17 8 20.5 12 17 16"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/>',
+  Heart:       '<path d="M12 19 C 4 13, 4 8, 8 7 Q 11 7 12 10 Q 13 7 16 7 C 20 8, 20 13, 12 19 Z"/><circle cx="12" cy="11" r="1.2" fill="currentColor" stroke="none"/>',
+  Footprints:  '<ellipse cx="8" cy="8.5" rx="2" ry="2.6" fill="currentColor" stroke="none"/><ellipse cx="16" cy="15.5" rx="2" ry="2.6" fill="currentColor" stroke="none"/><circle cx="6" cy="12" r="0.9" fill="currentColor" stroke="none"/><circle cx="18" cy="19" r="0.9" fill="currentColor" stroke="none"/>',
+  Bike:        '<circle cx="6" cy="16.5" r="3.2"/><circle cx="18" cy="16.5" r="3.2"/><polyline points="6 16.5 11 16.5 15 9.5 18 16.5"/><line x1="9.5" y1="9.5" x2="13" y2="9.5"/><circle cx="15" cy="6.5" r="1" fill="currentColor" stroke="none"/>',
+  Apple:       '<path d="M12 7.5 Q 6 7.5 6 13.5 Q 6 20.5 12 20.5 Q 18 20.5 18 13.5 Q 18 7.5 12 7.5 Z"/><path d="M13 4 Q 14 6 16 5.2"/><circle cx="14" cy="5" r="1" fill="currentColor" stroke="none"/>',
+  Briefcase:   '<rect x="3" y="8" width="18" height="13" rx="2"/><path d="M9 8 V 5 H 15 V 8"/><line x1="3" y1="14" x2="21" y2="14"/><circle cx="12" cy="14" r="1.3" fill="currentColor" stroke="none"/>',
+  Palette:     '<ellipse cx="12" cy="13" rx="8.5" ry="7"/><circle cx="8" cy="11" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="9" r="1" fill="currentColor" stroke="none"/><circle cx="16" cy="11" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="15" r="1" fill="currentColor" stroke="none"/>',
+  Camera:      '<rect x="3" y="7" width="18" height="13" rx="2"/><circle cx="12" cy="13.5" r="3.5"/><circle cx="12" cy="13.5" r="1.2" fill="currentColor" stroke="none"/>',
+  Sun:         '<circle cx="12" cy="12" r="3.6"/><line x1="12" y1="3" x2="12" y2="5.5"/><line x1="12" y1="18.5" x2="12" y2="21"/><line x1="3" y1="12" x2="5.5" y2="12"/><line x1="18.5" y1="12" x2="21" y2="12"/><line x1="5.6" y1="5.6" x2="7.3" y2="7.3"/><line x1="16.7" y1="16.7" x2="18.4" y2="18.4"/><line x1="5.6" y1="18.4" x2="7.3" y2="16.7"/><line x1="16.7" y1="7.3" x2="18.4" y2="5.6"/><circle cx="12" cy="12" r="0.9" fill="currentColor" stroke="none"/>',
+  Moon:        '<path d="M19 13.5 A 8 8 0 1 1 10.5 5 Q 12 14 19 13.5 Z"/><circle cx="14" cy="10" r="1.1" fill="currentColor" stroke="none"/>',
+  Droplet:     '<path d="M12 4 C 7 11, 5 14, 6 17 Q 8 21 12 21 Q 16 21 18 17 C 19 14, 17 11, 12 4 Z"/><circle cx="12" cy="15" r="1.2" fill="currentColor" stroke="none"/>',
+  Mountain:    '<path d="M3 19 L 9 9 L 13 14 L 17 8 L 21 19 Z"/><circle cx="9" cy="9" r="1.1" fill="currentColor" stroke="none"/><circle cx="17" cy="8" r="1.1" fill="currentColor" stroke="none"/>',
+  Trophy:      '<path d="M8 4 H 16 V 9 A 4 4 0 0 1 8 9 Z"/><path d="M16 5.5 H 19 V 7.5 A 3 3 0 0 1 16 10.5"/><path d="M8 5.5 H 5 V 7.5 A 3 3 0 0 0 8 10.5"/><line x1="12" y1="13" x2="12" y2="18"/><line x1="9" y1="20" x2="15" y2="20"/><circle cx="12" cy="7" r="1.2" fill="currentColor" stroke="none"/>',
+  Flag:        '<line x1="5" y1="4" x2="5" y2="21"/><path d="M5 5 H 17 L 14 9 L 17 13 H 5"/><circle cx="5" cy="3.5" r="1.3" fill="currentColor" stroke="none"/>',
+  Smile:       '<circle cx="12" cy="12" r="8.5"/><circle cx="9.5" cy="10.5" r="1" fill="currentColor" stroke="none"/><circle cx="14.5" cy="10.5" r="1" fill="currentColor" stroke="none"/><path d="M8.5 14 Q 12 17 15.5 14"/>',
   Circle:      '<circle cx="12" cy="12" r="10"/>',
 };
 
@@ -1107,22 +1296,28 @@ function dateSubtitle() {
 /* ============================================================
    STATE / STORE
    ============================================================ */
-const DEFAULT_PROFILE = { name: '', theme: 'auto' };
+const DEFAULT_PROFILE = { name: '', theme: 'auto', onboarded: false };
 
 function loadData() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return { profile: DEFAULT_PROFILE, categories: DEFAULT_CATEGORIES, entries: [], goals: [], notes: [] };
+    if (!raw) return { profile: Object.assign({}, DEFAULT_PROFILE), categories: DEFAULT_CATEGORIES, entries: [], goals: [], notes: [] };
     const p = JSON.parse(raw);
+    const profile = Object.assign({}, DEFAULT_PROFILE, p.profile || {});
+    const entries = p.entries || [];
+    // Pre-existing users (with data) should not see the welcome screen.
+    if (!('onboarded' in (p.profile || {})) && (entries.length > 0 || (p.profile && p.profile.name))) {
+      profile.onboarded = true;
+    }
     return {
-      profile:    Object.assign({}, DEFAULT_PROFILE, p.profile || {}),
+      profile:    profile,
       categories: (p.categories && p.categories.length) ? p.categories : DEFAULT_CATEGORIES,
-      entries:    p.entries || [],
+      entries:    entries,
       goals:      p.goals   || [],
       notes:      p.notes   || [],
     };
   } catch(e) {
-    return { profile: DEFAULT_PROFILE, categories: DEFAULT_CATEGORIES, entries: [], goals: [], notes: [] };
+    return { profile: Object.assign({}, DEFAULT_PROFILE), categories: DEFAULT_CATEGORIES, entries: [], goals: [], notes: [] };
   }
 }
 
@@ -1320,17 +1515,16 @@ function goalRow(g) {
 }
 
 function noteRow(n) {
-  const pin = n.pinned ? '<span class="icon-flex" style="color:var(--accent)">' + icon('Pin',{size:13, stroke:1.5}) + '</span>' : '';
-  const excerpt = n.body ? '<p class="note__excerpt">' + escapeHTML(n.body) + '</p>' : '';
+  const pin = n.pinned ? '<span class="icon-flex" style="color:var(--accent);margin-right:6px">' + icon('Pin',{size:12, stroke:2}) + '</span>' : '';
+  const w = (n.body||'').trim().split(/\s+/).filter(Boolean).length;
+  const meta = escapeHTML(formatTime(n.updatedAt)).toUpperCase() + (w > 0 ? '  ·  ' + w + ' words' : '');
+  const excerpt = n.body ? '<p class="note__excerpt">' + escapeHTML(n.body) + '</p>' : '<p class="note__excerpt" style="font-style:italic;color:var(--ink-400)">No content yet.</p>';
   return '<div class="note" data-action="edit-note" data-id="' + n.id + '">' +
     '<div class="note__body">' +
-      '<div class="note__title-row">' + pin + '<p class="note__title">' + escapeHTML(n.title) + '</p></div>' +
+      '<p class="note__time">' + pin + meta + '</p>' +
+      '<p class="note__title">' + escapeHTML(n.title) + '</p>' +
       excerpt +
-      '<p class="note__time">' + escapeHTML(formatTime(n.updatedAt)).toUpperCase() + '</p>' +
     '</div>' +
-    '<button class="note__pin" data-action="toggle-pin" data-id="' + n.id + '" data-stop="1" aria-label="' + (n.pinned ? 'Unpin' : 'Pin') + '">' +
-      icon(n.pinned ? 'PinOff' : 'Pin', {size:15, stroke:1.4}) +
-    '</button>' +
   '</div>';
 }
 
@@ -1758,12 +1952,32 @@ function modalAddGoal() {
 function modalEditNote() {
   const d = STATE.modalData;
   const isExisting = STATE.data.notes.some(function(n){ return n.id === d.id; });
-  const body = '<input class="input" id="note-title" type="text" placeholder="Title" value="' + escapeHTML(d.title) + '" style="background:transparent;border-radius:0;border-bottom:1px solid var(--ink-100);border-top:0;border-left:0;border-right:0;font-family:var(--serif);font-size:24px;font-weight:500;letter-spacing:-0.02em;padding:8px 4px;margin-top:0"/>' +
-    '<textarea class="textarea" id="note-body" rows="10" placeholder="Start writing…" style="background:transparent;padding:12px 4px;line-height:1.65;margin-top:8px;font-size:15px;color:var(--ink-700)">' + escapeHTML(d.body) + '</textarea>' +
-    '<div class="modal__footer">' +
-    (isExisting ? '<button class="btn-danger" style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:13px" data-action="delete-note" data-id="' + d.id + '">' + icon('Trash2',{size:14, stroke:1.5}) + ' Delete</button>' : '<span></span>') +
-    '<button class="btn btn-primary" data-action="close-modal">Save</button></div>';
-  return modalShell(isExisting ? 'Edit note' : 'New note', body);
+  const words = (d.body || '').trim().split(/\s+/).filter(Boolean).length;
+  const wordsLabel = words + ' word' + (words === 1 ? '' : 's');
+  const dateLabel = formatTime(d.updatedAt).toUpperCase();
+  const pinClass = d.pinned ? ' editor__icon-btn--active' : '';
+  return '<div class="editor" data-action="noop">' +
+    '<div class="editor__top">' +
+      '<div class="editor__top-left">' +
+        '<button class="editor__icon-btn" data-action="close-modal" aria-label="Done">' + icon('ChevronLeft',{size:20, stroke:1.6}) + '</button>' +
+        '<span class="editor__saved" id="editor-saved" style="opacity:0"><span class="editor__saved-dot"></span>Saved</span>' +
+      '</div>' +
+      '<div class="editor__top-right">' +
+        '<button class="editor__icon-btn' + pinClass + '" data-action="editor-toggle-pin" aria-label="Pin">' +
+          icon(d.pinned ? 'Pin' : 'Pin', {size:16, stroke:d.pinned ? 2 : 1.5}) +
+        '</button>' +
+        (isExisting ? '<button class="editor__icon-btn editor__icon-btn--danger" data-action="delete-note" data-id="' + d.id + '" aria-label="Delete">' + icon('Trash2',{size:16, stroke:1.6}) + '</button>' : '') +
+      '</div>' +
+    '</div>' +
+    '<div class="editor__body">' +
+      '<textarea class="editor__title" id="note-title" rows="1" placeholder="Title">' + escapeHTML(d.title) + '</textarea>' +
+      '<textarea class="editor__textarea" id="note-body" placeholder="Begin…">' + escapeHTML(d.body) + '</textarea>' +
+    '</div>' +
+    '<div class="editor__foot">' +
+      '<span id="editor-words">' + wordsLabel + '</span>' +
+      '<span>' + (isExisting ? dateLabel : 'NEW NOTE') + '</span>' +
+    '</div>' +
+  '</div>';
 }
 
 function modalEditCategory() {
@@ -1828,12 +2042,22 @@ function render() {
   else if (STATE.modal === 'edit-category') modalHTML = modalEditCategory();
 
   const focusHTML = STATE.focus ? viewFocus() : '';
+  const needsOnboarding = !(STATE.data.profile && STATE.data.profile.onboarded);
+  const welcomeHTML = needsOnboarding ? viewWelcome() : '';
 
   document.getElementById('app').innerHTML =
     '<div class="app">' + viewHTML + '</div>' +
     nav() +
     modalHTML +
-    focusHTML;
+    focusHTML +
+    welcomeHTML;
+
+  if (needsOnboarding) {
+    setTimeout(function() {
+      const inp = document.getElementById('welcome-name');
+      if (inp) inp.focus();
+    }, 280);
+  }
 }
 
 /* ============================================================
@@ -2012,6 +2236,25 @@ function exitFocus(save) {
   render();
 }
 
+function viewWelcome() {
+  return '<div class="welcome">' +
+    '<div class="welcome__brand">tune</div>' +
+    '<div class="welcome__hero">' +
+      '<p class="welcome__eyebrow">A boutique log</p>' +
+      '<h1 class="welcome__headline">Stay <em>in tune</em><br/>with yourself.</h1>' +
+      '<p class="welcome__lede">A calm, considered place to log your writing, workouts, goals, and notes — one tap at a time.</p>' +
+      '<div class="welcome__field">' +
+        '<label class="welcome__label">What should we call you?</label>' +
+        '<input class="welcome__input" id="welcome-name" type="text" placeholder="your name" autocomplete="given-name" />' +
+      '</div>' +
+    '</div>' +
+    '<div>' +
+      '<button class="welcome__cta" data-action="finish-welcome">Get started</button>' +
+      '<div class="welcome__skip"><button data-action="finish-welcome" data-skip="1">skip for now</button></div>' +
+    '</div>' +
+  '</div>';
+}
+
 function viewFocus() {
   const f = STATE.focus;
   const cat = findCategory(f.catId);
@@ -2108,6 +2351,17 @@ document.addEventListener('click', function(ev) {
     return;
   }
   if (action === 'noop') {
+    return;
+  }
+  if (action === 'finish-welcome') {
+    const inp = document.getElementById('welcome-name');
+    const name = inp ? inp.value.trim() : '';
+    STATE.data.profile = Object.assign({}, STATE.data.profile || DEFAULT_PROFILE, {
+      name: target.dataset.skip === '1' ? '' : name,
+      onboarded: true,
+    });
+    saveData();
+    render();
     return;
   }
   if (action === 'undo-quick-log') {
@@ -2235,6 +2489,12 @@ document.addEventListener('click', function(ev) {
     ev.stopPropagation();
     STATE.data.notes = STATE.data.notes.map(function(n){ return n.id === target.dataset.id ? Object.assign({}, n, { pinned: !n.pinned, updatedAt: new Date().toISOString() }) : n; });
     saveData(); render(); return;
+  }
+  if (action === 'editor-toggle-pin') {
+    if (!STATE.modalData) return;
+    STATE.modalData.pinned = !STATE.modalData.pinned;
+    render();
+    return;
   }
   if (action === 'delete-note') {
     STATE.data.notes = STATE.data.notes.filter(function(n){ return n.id !== target.dataset.id; });
@@ -2408,11 +2668,42 @@ document.addEventListener('input', function(ev) {
   }
 });
 
-/* persist note edits as the user types */
+/* persist note edits as the user types — with autosave indicator and word count */
+let _savedTimer = null;
+function _flashSaved() {
+  const el = document.getElementById('editor-saved');
+  if (!el) return;
+  el.style.opacity = '1';
+  if (_savedTimer) clearTimeout(_savedTimer);
+  _savedTimer = setTimeout(function() { el.style.opacity = '0'; }, 1200);
+}
+function _autosize(el) {
+  if (!el) return;
+  el.style.height = 'auto';
+  el.style.height = el.scrollHeight + 'px';
+}
 document.addEventListener('input', function(ev) {
   if (STATE.modal !== 'edit-note' || !STATE.modalData) return;
-  if (ev.target.id === 'note-title') STATE.modalData.title = ev.target.value;
-  if (ev.target.id === 'note-body')  STATE.modalData.body  = ev.target.value;
+  if (ev.target.id === 'note-title') {
+    STATE.modalData.title = ev.target.value;
+    _autosize(ev.target);
+  }
+  if (ev.target.id === 'note-body') {
+    STATE.modalData.body = ev.target.value;
+    const wEl = document.getElementById('editor-words');
+    if (wEl) {
+      const w = ev.target.value.trim().split(/\s+/).filter(Boolean).length;
+      wEl.textContent = w + ' word' + (w === 1 ? '' : 's');
+    }
+  }
+  // soft-persist to localStorage too so refresh doesn't lose work
+  saveCurrentNote();
+  _flashSaved();
+});
+
+/* autosize title when editor first renders */
+document.addEventListener('focusin', function(ev) {
+  if (ev.target.id === 'note-title') _autosize(ev.target);
 });
 
 window.addEventListener('hashchange', function() {
