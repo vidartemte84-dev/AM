@@ -1,7 +1,7 @@
 // Network-first service worker so a plain reload always picks up the latest deploy.
 // Bump CACHE on every release to invalidate the offline shell.
 
-const CACHE = 'tune-v1';
+const CACHE = 'tune-v2';
 const SHELL = [
   './',
   './index.html',
