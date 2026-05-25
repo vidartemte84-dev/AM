@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - claude/personal-logging-app-gGwnU
+      - claude/attachmatch-dating-app-a2GSs
       - main
       - master
   workflow_dispatch:
