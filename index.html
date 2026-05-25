@@ -4,8 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
 <title>Trace — Your Personal Log</title>
-<meta name="description" content="A calm, simple place to log writing, workouts, goals, and notes." />
-<meta name="theme-color" content="#4f46e5" />
+<meta name="description" content="A calm, considered place to log writing, workouts, goals, and notes." />
+<meta name="theme-color" content="#1a1a1a" />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-title" content="Trace" />
@@ -15,45 +15,46 @@
 <link rel="icon" href="./favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
 :root {
-  --bg: #f8fafc;
+  --bg: #f7f4ec;
+  --bg-soft: #faf7f1;
   --surface: #ffffff;
-  --ink-50:  #f8fafc;
-  --ink-100: #f1f5f9;
-  --ink-200: #e2e8f0;
-  --ink-300: #cbd5e1;
-  --ink-400: #94a3b8;
-  --ink-500: #64748b;
-  --ink-600: #475569;
-  --ink-700: #334155;
-  --ink-800: #1e293b;
-  --ink-900: #0f172a;
-  --brand: #4f46e5;
-  --brand-50: #eef2ff;
-  --brand-100: #e0e7ff;
-  --brand-600: #4f46e5;
-  --brand-700: #4338ca;
-  --red-500: #ef4444;
-  --shadow-card: 0 2px 12px rgba(15,23,42,0.05);
-  --shadow-hover: 0 8px 32px rgba(15,23,42,0.10);
-  --shadow-fab: 0 12px 32px rgba(79,70,229,0.35);
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
-  --radius-2xl: 24px;
+  --paper: #fffdf8;
+  --ink-50:  #f6f2e8;
+  --ink-100: #ece7d8;
+  --ink-200: #d9d2bf;
+  --ink-300: #b4ab94;
+  --ink-400: #8a8270;
+  --ink-500: #5e5746;
+  --ink-600: #3a342a;
+  --ink-700: #25211a;
+  --ink-800: #16130d;
+  --ink-900: #0c0a07;
+  --brand: #1f1d1a;
+  --brand-soft: #ece7d8;
+  --accent: #4f46e5;
+  --accent-soft: #eef2ff;
+  --red: #c2410c;
+  --shadow-card: 0 1px 0 rgba(15,17,19,0.04), 0 6px 20px rgba(31,29,26,0.04);
+  --shadow-pop:  0 1px 0 rgba(15,17,19,0.04), 0 20px 50px rgba(31,29,26,0.10);
+  --shadow-fab:  0 12px 30px rgba(15,17,19,0.18);
+  --border: 1px solid rgba(37,33,26,0.08);
+  --serif: 'Fraunces', 'Times New Roman', Georgia, serif;
+  --sans:  'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
 }
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html, body { margin: 0; padding: 0; }
 body {
-  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  font-family: var(--sans);
   background: var(--bg);
-  color: var(--ink-900);
+  color: var(--ink-800);
   min-height: 100vh;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 button { font-family: inherit; cursor: pointer; border: 0; background: none; padding: 0; color: inherit; }
 input, textarea { font-family: inherit; }
@@ -63,197 +64,296 @@ a { color: inherit; text-decoration: none; }
   max-width: 480px;
   margin: 0 auto;
   min-height: 100vh;
-  padding-bottom: 96px;
+  padding-bottom: 110px;
   position: relative;
 }
 
-/* HEADER */
+/* TYPOGRAPHY HELPERS */
+.serif { font-family: var(--serif); font-feature-settings: "ss01"; }
+.serif-i { font-family: var(--serif); font-style: italic; font-feature-settings: "ss01"; }
+
+/* MASTHEAD — editorial header */
+.masthead {
+  padding: 22px 22px 0;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.brand {
+  font-family: var(--serif); font-style: italic; font-weight: 500;
+  font-size: 22px; letter-spacing: -0.01em;
+  color: var(--ink-800);
+}
+.brand::after { content: '.'; color: var(--accent); }
+.masthead__right { display: flex; gap: 8px; align-items: center; }
+
+/* HEADER (page header for inner pages) */
 .header {
-  padding: 32px 20px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  padding: 22px 22px 12px;
+  display: flex; justify-content: space-between; align-items: flex-start;
   gap: 12px;
 }
-.header__title { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; margin: 0; color: var(--ink-900); }
-.header__subtitle { font-size: 14px; color: var(--ink-500); margin: 2px 0 0; }
-.header__group { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.header__title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 32px; line-height: 1.05; letter-spacing: -0.025em;
+  margin: 0; color: var(--ink-800);
+}
+.header__subtitle { font-size: 13px; color: var(--ink-500); margin: 6px 0 0; font-weight: 500; }
+.header__group { display: flex; align-items: center; gap: 6px; min-width: 0; }
 .header__back {
   width: 36px; height: 36px; border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  color: var(--ink-700); margin-left: -8px;
+  color: var(--ink-600); margin-left: -8px;
 }
 .header__back:hover { background: var(--ink-100); }
 .header__right { display: flex; gap: 8px; align-items: center; flex-shrink: 0; }
 
+/* BIG DATE on home */
+.date-block { padding: 0 22px; }
+.date-block__day {
+  font-family: var(--serif); font-weight: 400;
+  font-size: 60px; line-height: 0.95; letter-spacing: -0.04em;
+  color: var(--ink-800);
+  margin: 18px 0 6px;
+}
+.date-block__day em { font-style: italic; font-weight: 400; }
+.date-block__sub {
+  font-size: 13px; color: var(--ink-500);
+  letter-spacing: 0.01em; font-weight: 500;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.dot { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-300); display: inline-block; }
+.streak-pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 9px; border-radius: 999px;
+  background: var(--ink-800); color: #f5efe0;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+}
+.streak-pill svg { color: #fca5a5; }
+
 /* CARDS */
 .card {
   background: var(--surface);
-  border: 1px solid rgba(241,245,249,0.6);
-  border-radius: var(--radius-xl);
+  border: var(--border);
+  border-radius: 18px;
   box-shadow: var(--shadow-card);
   padding: 16px;
 }
 
 /* BUTTONS */
-.btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 16px; font-weight: 700; font-size: 14px; transition: transform 0.1s, background 0.15s; }
-.btn:active { transform: scale(0.96); }
-.btn-primary { background: var(--brand-600); color: white; box-shadow: var(--shadow-card); }
-.btn-primary:hover { background: var(--brand-700); }
-.btn-secondary { background: var(--ink-50); color: var(--ink-700); }
-.btn-ghost { color: var(--brand-600); }
-.btn-danger { color: var(--red-500); }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 22px; border-radius: 14px; font-weight: 600; font-size: 14px; transition: transform 0.12s, background 0.15s; letter-spacing: -0.005em; }
+.btn:active { transform: scale(0.97); }
+.btn-primary { background: var(--ink-800); color: #fdfbf6; }
+.btn-primary:hover { background: var(--ink-900); }
+.btn-secondary { background: var(--ink-100); color: var(--ink-700); }
+.btn-ghost { color: var(--accent); font-weight: 600; }
+.btn-danger { color: var(--red); }
 
 .btn-circle {
-  width: 40px; height: 40px; border-radius: 50%;
-  background: var(--brand-600); color: white;
+  width: 38px; height: 38px; border-radius: 50%;
+  background: var(--ink-800); color: #fdfbf6;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: var(--shadow-card);
-  transition: transform 0.1s;
+  transition: transform 0.12s, background 0.15s;
 }
-.btn-circle:active { transform: scale(0.95); }
+.btn-circle:active { transform: scale(0.94); }
 .btn-circle--ghost {
-  background: white;
-  color: var(--ink-600);
-  border: 1px solid var(--ink-100);
+  background: transparent;
+  color: var(--ink-700);
+  border: var(--border);
 }
-
-/* HERO */
-.hero {
-  background: linear-gradient(135deg, var(--brand-700), var(--brand-600));
-  color: white;
-  border-radius: var(--radius-2xl);
-  padding: 20px;
-  margin: 0 20px;
-  box-shadow: var(--shadow-card);
-  position: relative;
-  overflow: hidden;
-}
-.hero::before, .hero::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.08);
-}
-.hero::before { width: 128px; height: 128px; right: -24px; top: -24px; }
-.hero::after  { width: 160px; height: 160px; right: -48px; bottom: -48px; background: rgba(255,255,255,0.05); }
-.hero__inner { display: flex; justify-content: space-between; align-items: center; position: relative; }
-.hero__label { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: rgba(255,255,255,0.7); font-weight: 600; margin: 0; }
-.hero__big { font-size: 36px; font-weight: 800; margin: 4px 0 0; }
-.hero__big small { font-size: 16px; font-weight: 600; color: rgba(255,255,255,0.8); }
-.hero__sub { font-size: 14px; color: rgba(255,255,255,0.8); margin: 4px 0 0; }
-.hero__icon {
-  width: 56px; height: 56px;
-  background: rgba(255,255,255,0.2);
-  border-radius: 16px;
-  display: flex; align-items: center; justify-content: center;
-  backdrop-filter: blur(8px);
-}
+.btn-circle--ghost:hover { background: var(--ink-50); }
 
 /* SECTION */
-.section { padding: 0 20px; margin-top: 24px; }
-.section__head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-.section__title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-500); margin: 0; }
-.section__link { font-size: 12px; font-weight: 600; color: var(--brand-600); display: inline-flex; align-items: center; gap: 2px; }
+.section { padding: 0 22px; margin-top: 28px; }
+.section__head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; }
+.section__title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 16px; letter-spacing: -0.01em;
+  color: var(--ink-700); margin: 0;
+}
+.section__title em { font-style: italic; font-weight: 400; color: var(--ink-600); }
+.section__link {
+  font-size: 12px; font-weight: 600; color: var(--ink-500);
+  display: inline-flex; align-items: center; gap: 4px;
+  transition: color 0.15s;
+}
+.section__link:hover { color: var(--ink-800); }
 
-/* GRID */
-.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+/* CATEGORY TILE — premium one-tap */
+.tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
 
-/* CATEGORY TILE */
-.cat-tile {
-  background: white;
-  border: 1px solid rgba(241,245,249,0.6);
-  border-radius: 16px;
-  box-shadow: var(--shadow-card);
-  padding: 16px;
+.tile {
+  position: relative;
+  background: var(--paper);
+  border: var(--border);
+  border-radius: 22px;
+  padding: 18px 16px 16px;
   text-align: left;
   width: 100%;
-  transition: transform 0.1s;
+  min-height: 132px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
 }
-.cat-tile:active { transform: scale(0.98); }
-.cat-tile__icon {
-  width: 40px; height: 40px;
+.tile:active { transform: scale(0.96); }
+.tile.pulse { animation: tilePulse 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+@keyframes tilePulse {
+  0%   { transform: scale(1); }
+  20%  { transform: scale(0.96); }
+  50%  { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+.tile__icon {
+  width: 38px; height: 38px;
   border-radius: 12px;
   display: flex; align-items: center; justify-content: center;
-  margin-bottom: 12px;
 }
-.cat-tile__name { font-weight: 700; font-size: 14px; color: var(--ink-900); margin: 0; }
-.cat-tile__sub { font-size: 12px; color: var(--ink-500); margin: 2px 0 0; }
+.tile__name {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 19px; letter-spacing: -0.02em;
+  color: var(--ink-800); margin: 12px 0 0;
+}
+.tile__value {
+  display: flex; align-items: baseline; gap: 4px;
+  margin-top: 4px;
+}
+.tile__num {
+  font-family: var(--serif); font-weight: 400;
+  font-size: 22px; letter-spacing: -0.02em;
+  color: var(--ink-700);
+}
+.tile__unit {
+  font-size: 11px; color: var(--ink-400); font-weight: 500;
+  text-transform: lowercase;
+}
+.tile__sub {
+  font-size: 11px; color: var(--ink-400);
+  margin: 4px 0 0; font-weight: 500;
+  letter-spacing: 0.01em;
+}
+.tile__more {
+  position: absolute; top: 10px; right: 10px;
+  width: 28px; height: 28px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ink-300);
+  opacity: 0;
+  transition: opacity 0.15s, background 0.15s, color 0.15s;
+}
+.tile:hover .tile__more, .tile.show-more .tile__more { opacity: 1; }
+.tile__more:hover { background: var(--ink-100); color: var(--ink-700); }
+.tile__count {
+  position: absolute; bottom: 14px; right: 14px;
+  background: var(--ink-100);
+  color: var(--ink-600);
+  font-size: 10px; font-weight: 700;
+  border-radius: 999px;
+  padding: 2px 7px;
+}
 
-/* ENTRY ROW */
+/* ENTRY ROW — refined */
 .entry {
-  display: flex; align-items: flex-start; gap: 12px;
-  background: white;
-  border: 1px solid rgba(241,245,249,0.6);
+  display: flex; align-items: center; gap: 14px;
+  background: var(--surface);
+  border: var(--border);
   border-radius: 16px;
-  box-shadow: var(--shadow-card);
   padding: 14px;
   position: relative;
 }
 .entry__icon {
-  width: 40px; height: 40px; border-radius: 12px;
+  width: 38px; height: 38px; border-radius: 11px;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
 .entry__body { flex: 1; min-width: 0; }
-.entry__name { font-weight: 600; font-size: 14px; color: var(--ink-900); margin: 0; display: inline; }
-.entry__value { display: inline; font-weight: 700; font-size: 12px; color: var(--ink-700); margin-left: 8px; }
-.entry__value small { color: var(--ink-400); font-weight: 400; }
-.entry__note { font-size: 14px; color: var(--ink-600); margin: 2px 0 0; white-space: pre-wrap; }
+.entry__name { font-weight: 600; font-size: 14px; color: var(--ink-800); margin: 0; letter-spacing: -0.01em; }
+.entry__note { font-size: 13px; color: var(--ink-500); margin: 2px 0 0; white-space: pre-wrap; line-height: 1.4; }
+.entry__value {
+  text-align: right; flex-shrink: 0;
+}
+.entry__value-num {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 18px; letter-spacing: -0.02em;
+  color: var(--ink-800); display: block; line-height: 1;
+}
+.entry__value-unit {
+  font-size: 10px; color: var(--ink-400);
+  text-transform: lowercase; letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+.entry__time {
+  font-size: 10px; color: var(--ink-400); font-weight: 500;
+  display: block; margin-top: 2px;
+}
 .entry__delete {
   opacity: 0; transition: opacity 0.15s;
-  width: 32px; height: 32px;
+  width: 30px; height: 30px;
   border-radius: 8px;
   display: flex; align-items: center; justify-content: center;
-  color: var(--ink-400);
+  color: var(--ink-300); margin-left: 4px;
 }
 .entry:hover .entry__delete { opacity: 1; }
-.entry__delete:hover { background: #fef2f2; color: var(--red-500); }
+.entry__delete:hover { background: #fef2f2; color: var(--red); }
 
 /* GOAL ROW */
 .goal {
-  background: white;
-  border: 1px solid rgba(241,245,249,0.6);
-  border-radius: 16px;
-  box-shadow: var(--shadow-card);
+  background: var(--surface);
+  border: var(--border);
+  border-radius: 18px;
   padding: 16px;
-  display: flex; gap: 12px;
+  display: flex; gap: 14px;
 }
 .goal__icon {
-  width: 40px; height: 40px; border-radius: 12px;
+  width: 38px; height: 38px; border-radius: 11px;
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
 .goal__body { flex: 1; min-width: 0; }
-.goal__head { display: flex; justify-content: space-between; gap: 8px; align-items: flex-start; }
-.goal__title { font-weight: 700; font-size: 14px; color: var(--ink-900); margin: 0; }
-.goal__sub { font-size: 12px; color: var(--ink-500); margin: 2px 0 0; }
-.goal__pct { font-weight: 700; font-size: 14px; flex-shrink: 0; }
-.bar { height: 8px; background: var(--ink-100); border-radius: 999px; overflow: hidden; margin-top: 12px; }
+.goal__head { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+.goal__title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 17px; letter-spacing: -0.015em;
+  color: var(--ink-800); margin: 0;
+}
+.goal__sub { font-size: 12px; color: var(--ink-500); margin: 3px 0 0; font-weight: 500; }
+.goal__pct {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 16px; flex-shrink: 0; letter-spacing: -0.02em;
+}
+.bar { height: 6px; background: var(--ink-100); border-radius: 999px; overflow: hidden; margin-top: 14px; }
 .bar__fill { height: 100%; border-radius: 999px; transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
-.goal__actions { margin-top: 12px; display: flex; gap: 12px; font-size: 12px; }
+.goal__actions { margin-top: 12px; display: flex; gap: 16px; font-size: 12px; }
 .goal__actions button { font-weight: 600; }
 
 /* NOTE CARD */
 .note {
-  background: white;
-  border: 1px solid rgba(241,245,249,0.6);
-  border-radius: 16px;
-  box-shadow: var(--shadow-card);
+  background: var(--paper);
+  border: var(--border);
+  border-radius: 18px;
   padding: 16px;
   display: flex; gap: 12px;
   cursor: pointer;
-  transition: transform 0.1s;
+  transition: transform 0.12s, box-shadow 0.2s;
+  box-shadow: var(--shadow-card);
 }
 .note:active { transform: scale(0.99); }
 .note__body { flex: 1; min-width: 0; }
 .note__title-row { display: flex; align-items: center; gap: 6px; }
-.note__title { font-weight: 700; font-size: 14px; color: var(--ink-900); margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.note__excerpt { font-size: 14px; color: var(--ink-600); margin: 4px 0 0;
-  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; white-space: pre-wrap; }
-.note__time { font-size: 11px; color: var(--ink-400); margin: 8px 0 0; }
-.note__pin { width: 32px; height: 32px; border-radius: 8px; color: var(--ink-400); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.note__pin:hover { color: var(--brand-600); }
+.note__title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 17px; letter-spacing: -0.015em;
+  color: var(--ink-800); margin: 0;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.note__excerpt {
+  font-size: 13px; color: var(--ink-500); margin: 6px 0 0;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden; white-space: pre-wrap; line-height: 1.5;
+}
+.note__time { font-size: 10px; color: var(--ink-400); margin: 10px 0 0; font-weight: 500; letter-spacing: 0.02em; }
+.note__pin {
+  width: 30px; height: 30px; border-radius: 8px; color: var(--ink-300);
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.note__pin:hover { color: var(--accent); }
 
 /* INPUTS */
 .label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-500); display: block; }
@@ -263,19 +363,22 @@ a { color: inherit; text-decoration: none; }
   width: 100%;
   background: var(--ink-50);
   border: 1px solid transparent;
-  border-radius: 16px;
-  padding: 12px 16px;
+  border-radius: 14px;
+  padding: 13px 16px;
   font-size: 16px;
-  color: var(--ink-900);
+  color: var(--ink-800);
   outline: none;
   transition: background 0.15s, border 0.15s;
 }
-.input:focus, .textarea:focus, .select:focus { background: white; border-color: #a5b4fc; }
-.input--big { font-size: 24px; font-weight: 700; }
+.input:focus, .textarea:focus, .select:focus { background: var(--surface); border-color: var(--ink-200); }
+.input--big {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 28px; letter-spacing: -0.02em;
+}
 .textarea { resize: none; }
 .search-wrap { position: relative; }
 .search-wrap .icon-abs { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--ink-400); }
-.search-wrap input { padding-left: 44px; background: white; border: 1px solid var(--ink-100); margin-top: 0; }
+.search-wrap input { padding-left: 44px; background: var(--surface); border: var(--border); margin-top: 0; }
 
 /* CHIPS */
 .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
@@ -284,84 +387,93 @@ a { color: inherit; text-decoration: none; }
 .chip {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 8px 14px; border-radius: 999px;
-  font-size: 14px; font-weight: 600;
-  border: 1px solid var(--ink-200);
-  background: white; color: var(--ink-700);
+  font-size: 13px; font-weight: 600;
+  border: var(--border);
+  background: var(--surface); color: var(--ink-700);
   flex-shrink: 0;
   transition: transform 0.1s;
+  letter-spacing: -0.005em;
 }
 .chip:active { transform: scale(0.96); }
-.chip--active { border-color: transparent; color: white; box-shadow: var(--shadow-card); }
+.chip--active { border-color: transparent; color: #fdfbf6; }
 
 /* MODAL */
 .modal-backdrop {
   position: fixed; inset: 0;
-  background: rgba(15,23,42,0.4);
-  backdrop-filter: blur(4px);
+  background: rgba(15,16,18,0.32);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   display: flex; align-items: flex-end; justify-content: center;
   z-index: 50;
   animation: fadeIn 0.2s ease-out;
 }
 .modal {
-  background: white;
+  background: var(--bg-soft);
   width: 100%;
   max-width: 480px;
-  border-radius: 24px 24px 0 0;
+  border-radius: 28px 28px 0 0;
   max-height: 90vh;
   display: flex; flex-direction: column;
-  animation: slideUp 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  animation: slideUp 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: var(--shadow-pop);
 }
 @media (min-width: 540px) {
-  .modal-backdrop { align-items: center; }
-  .modal { border-radius: 24px; max-height: 80vh; }
+  .modal-backdrop { align-items: center; padding: 16px; }
+  .modal { border-radius: 28px; max-height: 80vh; }
 }
 .modal__head {
   display: flex; justify-content: space-between; align-items: center;
-  padding: 20px 20px 12px;
+  padding: 22px 22px 8px;
 }
-.modal__title { font-size: 18px; font-weight: 700; color: var(--ink-900); margin: 0; }
+.modal__title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 22px; letter-spacing: -0.02em;
+  color: var(--ink-800); margin: 0;
+}
 .modal__close {
   width: 36px; height: 36px; border-radius: 50%;
   background: var(--ink-100); color: var(--ink-600);
   display: flex; align-items: center; justify-content: center;
 }
-.modal__body { padding: 0 20px 24px; overflow-y: auto; }
+.modal__body { padding: 0 22px 24px; overflow-y: auto; }
 .modal__field { margin-top: 20px; }
 .modal__field:first-child { margin-top: 0; }
 .modal__row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.modal__footer { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 8px; padding-top: 16px; }
+.modal__footer { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 12px; padding-top: 16px; border-top: var(--border); }
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
 /* EMPTY */
 .empty {
-  background: white;
-  border: 2px dashed var(--ink-200);
-  border-radius: 24px;
-  padding: 32px;
+  background: var(--paper);
+  border: var(--border);
+  border-radius: 22px;
+  padding: 36px 24px;
   text-align: center;
 }
 .empty__icon {
-  width: 56px; height: 56px;
-  border-radius: 16px;
-  background: var(--brand-50);
-  color: var(--brand-600);
+  width: 52px; height: 52px;
+  border-radius: 14px;
+  background: var(--ink-100);
+  color: var(--ink-700);
   display: flex; align-items: center; justify-content: center;
-  margin: 0 auto 12px;
+  margin: 0 auto 14px;
 }
-.empty__title { font-size: 16px; font-weight: 700; color: var(--ink-900); margin: 0; }
-.empty__text { font-size: 14px; color: var(--ink-500); margin: 4px 0 0; }
+.empty__title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 18px; color: var(--ink-800); margin: 0; letter-spacing: -0.01em;
+}
+.empty__text { font-size: 13px; color: var(--ink-500); margin: 6px 0 0; line-height: 1.5; }
 
 /* FAB */
 .fab {
   position: fixed;
   bottom: 96px;
-  right: 16px;
+  right: 18px;
   width: 56px; height: 56px;
   border-radius: 50%;
-  background: var(--brand-600);
-  color: white;
+  background: var(--ink-800); color: #fdfbf6;
   display: flex; align-items: center; justify-content: center;
   box-shadow: var(--shadow-fab);
   z-index: 30;
@@ -369,7 +481,7 @@ a { color: inherit; text-decoration: none; }
   animation: fabIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
 }
 .fab:active { transform: scale(0.92); }
-@media (min-width: 540px) { .fab { right: calc(50% - 216px); } }
+@media (min-width: 540px) { .fab { right: calc(50% - 222px); } }
 @keyframes fabIn { from { transform: scale(0.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
 /* BOTTOM NAV */
@@ -379,36 +491,89 @@ a { color: inherit; text-decoration: none; }
   transform: translateX(-50%);
   width: 100%;
   max-width: 480px;
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(20px);
-  border-top: 1px solid var(--ink-100);
+  background: rgba(247,244,236,0.86);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  backdrop-filter: saturate(180%) blur(20px);
+  border-top: 1px solid rgba(37,33,26,0.08);
   z-index: 40;
   padding-bottom: env(safe-area-inset-bottom, 0);
 }
-.nav__inner { display: flex; justify-content: space-around; padding: 8px;  }
+.nav__inner { display: flex; justify-content: space-around; padding: 10px 8px 6px; }
 .nav__item {
   display: flex; flex-direction: column; align-items: center;
   gap: 4px;
-  padding: 6px 16px;
+  padding: 4px 16px;
   color: var(--ink-400);
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   position: relative;
+  transition: color 0.15s;
 }
-.nav__item--active { color: var(--brand-600); }
+.nav__item--active { color: var(--ink-800); }
 .nav__item--active::after {
   content: '';
   position: absolute;
   bottom: -4px;
   left: 50%;
   transform: translateX(-50%);
-  width: 4px; height: 4px;
-  background: var(--brand-600);
-  border-radius: 50%;
+  width: 16px; height: 2px;
+  background: var(--ink-800);
+  border-radius: 2px;
 }
 
-/* COLOR SWATCHES */
+/* TOAST */
+.toast-wrap {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 60;
+  pointer-events: none;
+  width: 100%;
+  max-width: 460px;
+  padding: 0 14px;
+  display: flex; justify-content: center;
+}
+.toast {
+  pointer-events: auto;
+  background: var(--ink-800);
+  color: #fdfbf6;
+  border-radius: 14px;
+  padding: 12px 14px 12px 16px;
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: var(--shadow-pop);
+  font-size: 13px;
+  font-weight: 500;
+  animation: toastIn 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+  max-width: 100%;
+}
+.toast.out { animation: toastOut 0.28s ease-in forwards; }
+.toast__dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.toast__msg { flex: 1; min-width: 0; }
+.toast__msg strong { font-weight: 600; color: #fdfbf6; }
+.toast__msg span { color: rgba(253,251,246,0.7); }
+.toast__action {
+  padding: 6px 10px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 8px;
+  color: #fdfbf6;
+  font-weight: 600;
+  font-size: 12px;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+.toast__action:hover { background: rgba(255,255,255,0.2); }
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes toastOut {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(20px); }
+}
+
+/* SWATCHES */
 .swatches { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
 .swatch {
   width: 36px; height: 36px;
@@ -426,84 +591,112 @@ a { color: inherit; text-decoration: none; }
   background: var(--ink-50);
   color: var(--ink-600);
   display: flex; align-items: center; justify-content: center;
+  transition: transform 0.1s;
 }
-.icongrid button.active { color: white; box-shadow: var(--shadow-card); }
+.icongrid button:active { transform: scale(0.92); }
+.icongrid button.active { color: #fdfbf6; }
 
-/* TYPE TOGGLE */
+/* TOGGLE */
 .toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
 .toggle-grid button, .period-grid button {
-  padding: 12px; border-radius: 16px;
-  background: var(--ink-50); color: var(--ink-700);
+  padding: 12px; border-radius: 14px;
+  background: var(--ink-50); color: var(--ink-600);
   font-weight: 600; font-size: 14px;
+  letter-spacing: -0.005em;
+  transition: background 0.15s, color 0.15s;
 }
 .toggle-grid button.active, .period-grid button.active {
-  background: var(--brand-600); color: white; box-shadow: var(--shadow-card);
+  background: var(--ink-800); color: #fdfbf6;
 }
 .period-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px; }
 
 /* PREVIEW */
 .preview {
-  display: flex; gap: 12px; align-items: center;
-  background: var(--ink-50);
+  display: flex; gap: 14px; align-items: center;
+  background: var(--paper);
   padding: 16px;
-  border-radius: 16px;
+  border-radius: 18px;
+  border: var(--border);
 }
 .preview__icon {
-  width: 48px; height: 48px; border-radius: 16px;
+  width: 48px; height: 48px; border-radius: 14px;
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
-.preview__name { font-weight: 700; color: var(--ink-900); margin: 0; }
-.preview__sub { font-size: 12px; color: var(--ink-500); margin: 2px 0 0; }
+.preview__name {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 18px; letter-spacing: -0.015em;
+  color: var(--ink-800); margin: 0;
+}
+.preview__sub { font-size: 12px; color: var(--ink-500); margin: 3px 0 0; }
 
-/* MISC */
+/* DASHED ADD */
 .dashed-add {
   display: flex; align-items: center; justify-content: center;
   gap: 8px; width: 100%; margin-top: 16px;
-  padding: 12px; border-radius: 16px;
-  border: 2px dashed var(--ink-200);
-  color: var(--ink-500); font-weight: 600; font-size: 14px;
+  padding: 14px; border-radius: 16px;
+  border: 1.5px dashed var(--ink-200);
+  color: var(--ink-500); font-weight: 600; font-size: 13px;
   transition: border-color 0.15s, color 0.15s;
 }
-.dashed-add:hover { border-color: #a5b4fc; color: var(--brand-600); }
+.dashed-add:hover { border-color: var(--ink-400); color: var(--ink-800); }
 
-.date-h { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-500); padding: 0 4px; margin-bottom: 8px; }
+/* DATE HEADER (log timeline) */
+.date-h {
+  font-family: var(--serif); font-weight: 500; font-style: italic;
+  font-size: 14px; letter-spacing: -0.005em;
+  color: var(--ink-500);
+  padding: 0 4px; margin-bottom: 10px;
+}
 .date-group + .date-group { margin-top: 24px; }
 
 .icon-flex { display: inline-flex; vertical-align: middle; }
 
-/* FLOATING category list */
+/* CAT LIST */
 .cat-list-item {
-  display: flex; align-items: center; gap: 12px;
-  background: white;
-  border: 1px solid rgba(241,245,249,0.6);
+  display: flex; align-items: center; gap: 14px;
+  background: var(--surface);
+  border: var(--border);
   border-radius: 16px;
-  box-shadow: var(--shadow-card);
-  padding: 16px;
+  padding: 14px 16px;
   width: 100%;
   text-align: left;
   cursor: pointer;
   transition: transform 0.1s;
 }
 .cat-list-item:active { transform: scale(0.99); }
-.cat-list-item__icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.cat-list-item__icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .cat-list-item__body { flex: 1; min-width: 0; }
-.cat-list-item__name { font-weight: 700; color: var(--ink-900); font-size: 14px; margin: 0; }
+.cat-list-item__name { font-weight: 600; color: var(--ink-800); font-size: 14px; margin: 0; letter-spacing: -0.01em; }
 .cat-list-item__sub { font-size: 12px; color: var(--ink-500); margin: 2px 0 0; }
 .cat-list-item__chev { color: var(--ink-300); flex-shrink: 0; }
 
-.stack > * + * { margin-top: 10px; }
+.stack > * + * { margin-top: 12px; }
 .stack-tight > * + * { margin-top: 8px; }
 .stack-loose > * + * { margin-top: 20px; }
+
+/* INTRO HINT — shown until first log */
+.hint {
+  display: flex; align-items: flex-start; gap: 10px;
+  background: var(--ink-50);
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 12px;
+  color: var(--ink-600);
+  line-height: 1.5;
+  margin-top: 12px;
+}
+.hint svg { color: var(--ink-400); flex-shrink: 0; margin-top: 1px; }
 </style>
 </head>
 <body>
 <div id="app"></div>
+<div id="toast-host"></div>
 
 <script>
 'use strict';
 
 /* ============================================================
-   ICONS — inline SVG paths (Lucide-style, MIT)
+   ICONS — inline SVG paths (Lucide, MIT)
    ============================================================ */
 const ICONS = {
   Home:        '<path d="M3 9.5L12 3l9 6.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/>',
@@ -516,13 +709,16 @@ const ICONS = {
   Pin:         '<path d="M12 17v5"/><path d="M9 10.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H8a2 2 0 0 0 0 4 1 1 0 0 1 1 1z"/>',
   PinOff:      '<path d="M12 17v5"/><path d="M15 9.34V7a1 1 0 0 1 1-1 2 2 0 0 0 0-4H7.89"/><path d="m2 2 20 20"/><path d="M9 9v1.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24V16a1 1 0 0 0 1 1h12"/>',
   Settings:    '<path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/><circle cx="12" cy="12" r="3"/>',
+  SlidersHorizontal: '<line x1="21" x2="14" y1="4" y2="4"/><line x1="10" x2="3" y1="4" y2="4"/><line x1="21" x2="12" y1="12" y2="12"/><line x1="8" x2="3" y1="12" y2="12"/><line x1="21" x2="16" y1="20" y2="20"/><line x1="12" x2="3" y1="20" y2="20"/><line x1="14" x2="14" y1="2" y2="6"/><line x1="8" x2="8" y1="10" y2="14"/><line x1="16" x2="16" y1="18" y2="22"/>',
   ChevronLeft: '<path d="m15 18-6-6 6-6"/>',
   ChevronRight:'<path d="m9 18 6-6-6-6"/>',
+  MoreHorizontal: '<circle cx="12" cy="12" r="1"/><circle cx="19" cy="12" r="1"/><circle cx="5" cy="12" r="1"/>',
   Trash2:      '<path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>',
   Pencil:      '<path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/>',
   Check:       '<path d="M20 6 9 17l-5-5"/>',
   ArrowRight:  '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
   Flame:       '<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>',
+  Info:        '<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
 
   /* category icons */
   PenLine:     '<path d="M12 20h9"/><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"/>',
@@ -554,7 +750,7 @@ function icon(name, opts) {
   opts = opts || {};
   const inner = ICONS[name] || ICONS.Circle;
   const size = opts.size || 24;
-  const stroke = opts.stroke || 2;
+  const stroke = opts.stroke || 1.75;
   const cls = opts.cls ? ' class="' + opts.cls + '"' : '';
   return '<svg' + cls + ' xmlns="http://www.w3.org/2000/svg" width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="' + stroke + '" stroke-linecap="round" stroke-linejoin="round">' + inner + '</svg>';
 }
@@ -562,14 +758,14 @@ function icon(name, opts) {
 /* ============================================================
    CONSTANTS
    ============================================================ */
-const CATEGORY_COLORS = ['#6366f1','#8b5cf6','#ec4899','#ef4444','#f97316','#eab308','#10b981','#06b6d4','#3b82f6','#64748b'];
+const CATEGORY_COLORS = ['#6366f1','#8b5cf6','#ec4899','#dc2626','#ea580c','#ca8a04','#059669','#0891b2','#2563eb','#475569'];
 const CATEGORY_ICONS = ['PenLine','Dumbbell','BookOpen','Sparkles','Brain','Coffee','Music','Code','Heart','Footprints','Bike','Apple','Briefcase','Palette','Camera','Sun','Moon','Droplet','Flame','Mountain','Target','Trophy','Flag','Smile'];
 
 const DEFAULT_CATEGORIES = [
-  { id: 'writing',    name: 'Writing',    icon: 'PenLine',  color: '#6366f1', unit: 'words',   trackValue: true },
-  { id: 'workout',    name: 'Workout',    icon: 'Dumbbell', color: '#f97316', unit: 'minutes', trackValue: true },
-  { id: 'reading',    name: 'Reading',    icon: 'BookOpen', color: '#10b981', unit: 'pages',   trackValue: true },
-  { id: 'meditation', name: 'Meditation', icon: 'Sparkles', color: '#8b5cf6', unit: 'minutes', trackValue: true },
+  { id: 'writing',    name: 'Writing',    icon: 'PenLine',  color: '#6366f1', unit: 'words',   trackValue: true, defaultValue: 500 },
+  { id: 'workout',    name: 'Workout',    icon: 'Dumbbell', color: '#dc2626', unit: 'minutes', trackValue: true, defaultValue: 30 },
+  { id: 'reading',    name: 'Reading',    icon: 'BookOpen', color: '#059669', unit: 'pages',   trackValue: true, defaultValue: 20 },
+  { id: 'meditation', name: 'Meditation', icon: 'Sparkles', color: '#8b5cf6', unit: 'minutes', trackValue: true, defaultValue: 10 },
 ];
 
 const STORAGE_KEY = 'trace_app_data_v1';
@@ -615,16 +811,17 @@ function formatTime(iso) {
   }
   return d.toLocaleDateString(undefined, { month:'short', day:'numeric' });
 }
-function greeting() {
-  const h = new Date().getHours();
-  if (h < 5)  return 'Late night';
-  if (h < 12) return 'Good morning';
-  if (h < 17) return 'Good afternoon';
-  if (h < 22) return 'Good evening';
-  return 'Late night';
+function timeOfDay(iso) {
+  const d = new Date(iso);
+  return d.toLocaleTimeString(undefined, { hour:'numeric', minute:'2-digit' });
 }
-function todayLabel() {
-  return new Date().toLocaleDateString(undefined, { weekday:'long', month:'long', day:'numeric' });
+function greetingSerif() {
+  const d = new Date();
+  const weekday = d.toLocaleDateString(undefined, { weekday:'long' });
+  return weekday;
+}
+function dateSubtitle() {
+  return new Date().toLocaleDateString(undefined, { month:'long', day:'numeric', year:'numeric' });
 }
 
 /* ============================================================
@@ -654,6 +851,7 @@ const STATE = {
   modalData: null,
   filterCategoryId: null,
   noteQuery: '',
+  lastEntryId: null,    // for undo
 };
 
 function setView(view) {
@@ -702,13 +900,47 @@ function streakDays() {
 }
 function findCategory(id) { return STATE.data.categories.find(function(c){ return c.id === id; }); }
 
+function todayTotalsByCat() {
+  const map = {};
+  STATE.data.entries.forEach(function(e) {
+    if (e.date === todayISO()) {
+      if (!map[e.categoryId]) map[e.categoryId] = { total: 0, count: 0 };
+      map[e.categoryId].count++;
+      map[e.categoryId].total += (e.value || 0);
+    }
+  });
+  return map;
+}
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+function showToast(html, opts) {
+  opts = opts || {};
+  const host = document.getElementById('toast-host');
+  if (!host) return;
+  host.innerHTML = '<div class="toast-wrap"><div class="toast">' + html + '</div></div>';
+  const t = host.querySelector('.toast');
+  if (opts.duration !== 0) {
+    setTimeout(function() {
+      if (!t) return;
+      t.classList.add('out');
+      setTimeout(function() { host.innerHTML = ''; }, 300);
+    }, opts.duration || 3200);
+  }
+}
+function hideToast() {
+  const host = document.getElementById('toast-host');
+  if (host) host.innerHTML = '';
+}
+
 /* ============================================================
    COMPONENTS
    ============================================================ */
 function header(opts) {
   const title = opts.title;
   const sub = opts.subtitle ? '<p class="header__subtitle">' + escapeHTML(opts.subtitle) + '</p>' : '';
-  const back = opts.back ? '<button class="header__back" data-action="nav" data-view="' + escapeHTML(opts.back) + '">' + icon('ChevronLeft',{size:20}) + '</button>' : '';
+  const back = opts.back ? '<button class="header__back" data-action="nav" data-view="' + escapeHTML(opts.back) + '">' + icon('ChevronLeft',{size:22}) + '</button>' : '';
   const right = opts.right || '';
   return '<header class="header">' +
     '<div class="header__group">' + back + '<div style="min-width:0"><h1 class="header__title">' + escapeHTML(title) + '</h1>' + sub + '</div></div>' +
@@ -716,15 +948,32 @@ function header(opts) {
   '</header>';
 }
 
-function catTile(c, action) {
-  const todayEntries = STATE.data.entries.filter(function(e){ return e.date === todayISO() && e.categoryId === c.id; });
-  const total = todayEntries.reduce(function(s,e){ return s + (e.value||0); }, 0);
-  const count = todayEntries.length;
-  const sub = count === 0 ? 'Tap to log' : (c.trackValue ? total + ' ' + (c.unit || '') + ' today' : count + ' today');
-  return '<button class="cat-tile" data-action="' + action + '" data-cat="' + escapeHTML(c.id) + '">' +
-    '<div class="cat-tile__icon" style="background:' + alpha(c.color, 0.12) + ';color:' + c.color + '">' + icon(c.icon, {size:20, stroke:2.2}) + '</div>' +
-    '<p class="cat-tile__name">' + escapeHTML(c.name) + '</p>' +
-    '<p class="cat-tile__sub">' + escapeHTML(sub) + '</p>' +
+function categoryTile(c, todayStats) {
+  const stats = todayStats[c.id] || { total: 0, count: 0 };
+  const hasToday = stats.count > 0;
+  const valueLine = c.trackValue ? (
+    hasToday
+      ? '<span class="tile__num">' + stats.total + '</span><span class="tile__unit">' + escapeHTML(c.unit||'') + '</span>'
+      : '<span class="tile__num" style="color:var(--ink-300)">' + (c.defaultValue || 0) + '</span><span class="tile__unit" style="color:var(--ink-300)">' + escapeHTML(c.unit||'') + ' default</span>'
+  ) : (
+    hasToday
+      ? '<span class="tile__num">' + stats.count + '×</span><span class="tile__unit">today</span>'
+      : '<span class="tile__num" style="color:var(--ink-300)">—</span><span class="tile__unit" style="color:var(--ink-300)">tap to check in</span>'
+  );
+  const subLine = hasToday
+    ? '<p class="tile__sub">' + (c.trackValue ? stats.count + ' ' + (stats.count === 1 ? 'entry' : 'entries') + ' today' : 'Tap to add another') + '</p>'
+    : '<p class="tile__sub">Tap to log</p>';
+  const countBadge = hasToday && c.trackValue ? '<span class="tile__count">' + stats.count + '</span>' : '';
+
+  return '<button class="tile" data-action="quick-log" data-cat="' + escapeHTML(c.id) + '" data-id="' + escapeHTML(c.id) + '">' +
+    '<div class="tile__icon" style="background:' + alpha(c.color, 0.12) + ';color:' + c.color + '">' + icon(c.icon, {size:20, stroke:1.9}) + '</div>' +
+    '<div>' +
+      '<p class="tile__name">' + escapeHTML(c.name) + '</p>' +
+      '<div class="tile__value">' + valueLine + '</div>' +
+      subLine +
+    '</div>' +
+    countBadge +
+    '<span class="tile__more" data-action="open-add-entry" data-cat="' + escapeHTML(c.id) + '" data-stop="1" aria-label="Add with details">' + icon('MoreHorizontal',{size:16}) + '</span>' +
   '</button>';
 }
 
@@ -733,12 +982,19 @@ function entryRow(e, opts) {
   const c = findCategory(e.categoryId);
   if (!c) return '';
   const valueHTML = (c.trackValue && e.value != null) ?
-    '<span class="entry__value">' + escapeHTML(String(e.value)) + ' <small>' + escapeHTML(c.unit||'') + '</small></span>' : '';
+    '<div class="entry__value">' +
+      '<span class="entry__value-num">' + escapeHTML(String(e.value)) + '</span>' +
+      '<span class="entry__value-unit">' + escapeHTML(c.unit||'') + '</span>' +
+      (e.createdAt ? '<span class="entry__time">' + escapeHTML(timeOfDay(e.createdAt)) + '</span>' : '') +
+    '</div>'
+    :
+    (e.createdAt ? '<div class="entry__value"><span class="entry__time">' + escapeHTML(timeOfDay(e.createdAt)) + '</span></div>' : '');
   const noteHTML = e.note ? '<p class="entry__note">' + escapeHTML(e.note) + '</p>' : '';
-  const delBtn = opts.deletable ? '<button class="entry__delete" data-action="delete-entry" data-id="' + e.id + '" aria-label="Delete">' + icon('Trash2',{size:16}) + '</button>' : '';
+  const delBtn = opts.deletable ? '<button class="entry__delete" data-action="delete-entry" data-id="' + e.id + '" aria-label="Delete">' + icon('Trash2',{size:14, stroke:2}) + '</button>' : '';
   return '<div class="entry">' +
-    '<div class="entry__icon" style="background:' + alpha(c.color, 0.12) + ';color:' + c.color + '">' + icon(c.icon, {size:20, stroke:2.2}) + '</div>' +
-    '<div class="entry__body"><p class="entry__name">' + escapeHTML(c.name) + '</p>' + valueHTML + noteHTML + '</div>' +
+    '<div class="entry__icon" style="background:' + alpha(c.color, 0.12) + ';color:' + c.color + '">' + icon(c.icon, {size:18, stroke:1.9}) + '</div>' +
+    '<div class="entry__body"><p class="entry__name">' + escapeHTML(c.name) + '</p>' + noteHTML + '</div>' +
+    valueHTML +
     delBtn +
   '</div>';
 }
@@ -751,38 +1007,38 @@ function goalRow(g) {
   const complete = progress >= g.target;
   const iconName = c ? c.icon : 'Target';
   return '<div class="goal">' +
-    '<div class="goal__icon" style="background:' + alpha(color, 0.12) + ';color:' + color + '">' + icon(iconName, {size:20, stroke:2.2}) + '</div>' +
+    '<div class="goal__icon" style="background:' + alpha(color, 0.12) + ';color:' + color + '">' + icon(iconName, {size:18, stroke:1.9}) + '</div>' +
     '<div class="goal__body">' +
       '<div class="goal__head"><div style="min-width:0">' +
         '<p class="goal__title">' + escapeHTML(g.title) + '</p>' +
-        '<p class="goal__sub">' + progress + '/' + g.target + ' ' + escapeHTML(g.unit) + ' · this ' + g.period + (c ? ' · ' + escapeHTML(c.name) : '') + '</p>' +
-      '</div><div class="goal__pct" style="color:' + color + '">' + (complete ? 'Done' : pct + '%') + '</div></div>' +
+        '<p class="goal__sub">' + progress + ' of ' + g.target + ' ' + escapeHTML(g.unit) + ' · this ' + g.period + (c ? ' · ' + escapeHTML(c.name) : '') + '</p>' +
+      '</div><div class="goal__pct" style="color:' + color + '">' + (complete ? '✓' : pct + '%') + '</div></div>' +
       '<div class="bar"><div class="bar__fill" style="width:' + pct + '%;background:' + color + '"></div></div>' +
       '<div class="goal__actions">' +
-        '<button class="btn-ghost" data-action="archive-goal" data-id="' + g.id + '" style="color:var(--ink-500)">' + (g.archived ? 'Reactivate' : 'Archive') + '</button>' +
-        '<button class="btn-ghost" data-action="delete-goal" data-id="' + g.id + '" style="color:var(--red-500);display:inline-flex;align-items:center;gap:4px">' + icon('Trash2',{size:14}) + 'Delete</button>' +
+        '<button data-action="archive-goal" data-id="' + g.id + '" style="color:var(--ink-500)">' + (g.archived ? 'Reactivate' : 'Archive') + '</button>' +
+        '<button data-action="delete-goal" data-id="' + g.id + '" style="color:var(--red);display:inline-flex;align-items:center;gap:4px">' + icon('Trash2',{size:13, stroke:2}) + 'Delete</button>' +
       '</div>' +
     '</div>' +
   '</div>';
 }
 
 function noteRow(n) {
-  const pin = n.pinned ? '<span class="icon-flex" style="color:var(--brand)">' + icon('Pin',{size:14}) + '</span>' : '';
+  const pin = n.pinned ? '<span class="icon-flex" style="color:var(--accent)">' + icon('Pin',{size:13, stroke:2}) + '</span>' : '';
   const excerpt = n.body ? '<p class="note__excerpt">' + escapeHTML(n.body) + '</p>' : '';
   return '<div class="note" data-action="edit-note" data-id="' + n.id + '">' +
     '<div class="note__body">' +
       '<div class="note__title-row">' + pin + '<p class="note__title">' + escapeHTML(n.title) + '</p></div>' +
       excerpt +
-      '<p class="note__time">' + escapeHTML(formatTime(n.updatedAt)) + '</p>' +
+      '<p class="note__time">' + escapeHTML(formatTime(n.updatedAt)).toUpperCase() + '</p>' +
     '</div>' +
-    '<button class="note__pin" data-action="toggle-pin" data-id="' + n.id + '" aria-label="' + (n.pinned ? 'Unpin' : 'Pin') + '">' +
-      icon(n.pinned ? 'PinOff' : 'Pin', {size:16}) +
+    '<button class="note__pin" data-action="toggle-pin" data-id="' + n.id + '" data-stop="1" aria-label="' + (n.pinned ? 'Unpin' : 'Pin') + '">' +
+      icon(n.pinned ? 'PinOff' : 'Pin', {size:15, stroke:1.9}) +
     '</button>' +
   '</div>';
 }
 
 function fab() {
-  return '<button class="fab" data-action="open-add-entry" aria-label="Add">' + icon('Plus',{size:28, stroke:2.6}) + '</button>';
+  return '<button class="fab" data-action="open-add-entry" aria-label="Add entry with details">' + icon('SlidersHorizontal',{size:20, stroke:2.2}) + '</button>';
 }
 
 function nav() {
@@ -796,7 +1052,7 @@ function nav() {
     items.map(function(it){
       const active = STATE.view === it.v || (it.v === 'home' && STATE.view === 'categories');
       return '<button class="nav__item' + (active ? ' nav__item--active' : '') + '" data-action="nav" data-view="' + it.v + '">' +
-        icon(it.i, {size:24, stroke: active ? 2.2 : 1.8}) +
+        icon(it.i, {size:22, stroke: active ? 2 : 1.7}) +
         '<span>' + it.l + '</span>' +
       '</button>';
     }).join('') +
@@ -809,42 +1065,57 @@ function nav() {
 function viewHome() {
   const streak = streakDays();
   const todayEntries = STATE.data.entries.filter(function(e){ return e.date === todayISO(); });
+  const todayStats = todayTotalsByCat();
   const activeGoals = STATE.data.goals.filter(function(g){ return !g.archived; }).slice(0, 3);
 
-  const heroHTML = '<section class="hero"><div class="hero__inner"><div>' +
-    '<p class="hero__label">Current streak</p>' +
-    '<p class="hero__big">' + streak + ' <small>' + (streak === 1 ? 'day' : 'days') + '</small></p>' +
-    '<p class="hero__sub">' + (todayEntries.length > 0 ? (todayEntries.length + ' ' + (todayEntries.length === 1 ? 'entry' : 'entries') + ' today') : 'Log something to keep it going') + '</p>' +
-    '</div><div class="hero__icon">' + icon('Flame',{size:28, stroke:2.2}) + '</div></div></section>';
+  const masthead = '<div class="masthead">' +
+    '<div class="brand">trace</div>' +
+    '<div class="masthead__right">' +
+      '<button class="btn-circle btn-circle--ghost" data-action="nav" data-view="categories" aria-label="Categories">' + icon('Settings',{size:18, stroke:1.9}) + '</button>' +
+    '</div>' +
+  '</div>';
 
-  const quickLogHTML = '<section class="section">' +
-    '<div class="section__head"><h2 class="section__title">Quick log</h2>' +
-    '<button class="section__link" data-action="nav" data-view="categories">Manage</button></div>' +
-    '<div class="grid-2">' + STATE.data.categories.map(function(c){ return catTile(c, 'open-add-entry'); }).join('') + '</div>' +
+  const streakBit = streak > 0
+    ? '<span class="streak-pill">' + icon('Flame',{size:11, stroke:2.2}) + streak + '-day streak</span>'
+    : '';
+  const todayBit = todayEntries.length > 0
+    ? '<span>' + todayEntries.length + ' entr' + (todayEntries.length === 1 ? 'y' : 'ies') + ' today</span>'
+    : '<span style="color:var(--ink-400)">Tap a tile to log</span>';
+  const dateBlock = '<section class="date-block">' +
+    '<h1 class="date-block__day"><em>' + escapeHTML(greetingSerif()) + '</em></h1>' +
+    '<p class="date-block__sub">' + escapeHTML(dateSubtitle()) + (streakBit ? '<span class="dot"></span>' + streakBit : '') + (todayEntries.length === 0 ? '<span class="dot"></span>' + todayBit : '') + '</p>' +
+  '</section>';
+
+  const hintHTML = STATE.data.entries.length === 0 ? (
+    '<div class="section" style="margin-top:18px"><div class="hint">' + icon('Info',{size:14, stroke:1.9}) +
+    '<span><strong>Tap any tile</strong> to instantly log a default amount. Use the slider icon (bottom-right) for entries with details.</span></div></div>'
+  ) : '';
+
+  const tilesHTML = '<section class="section">' +
+    '<div class="section__head">' +
+    '<h2 class="section__title">Quick <em>log</em></h2>' +
+    '<button class="section__link" data-action="nav" data-view="categories">Categories</button>' +
+    '</div>' +
+    '<div class="tiles">' + STATE.data.categories.map(function(c){ return categoryTile(c, todayStats); }).join('') + '</div>' +
   '</section>';
 
   const goalsHTML = activeGoals.length > 0 ? (
     '<section class="section">' +
-    '<div class="section__head"><h2 class="section__title">Active goals</h2>' +
-    '<button class="section__link" data-action="nav" data-view="goals">All ' + icon('ArrowRight',{size:12}) + '</button></div>' +
+    '<div class="section__head"><h2 class="section__title"><em>In</em> progress</h2>' +
+    '<button class="section__link" data-action="nav" data-view="goals">All ' + icon('ArrowRight',{size:11, stroke:2}) + '</button></div>' +
     '<div class="stack-tight">' + activeGoals.map(goalRow).join('') + '</div>' +
     '</section>'
   ) : '';
 
-  const todayHTML = '<section class="section">' +
-    '<div class="section__head"><h2 class="section__title">Today</h2>' +
-    '<button class="section__link" data-action="nav" data-view="log">History ' + icon('ArrowRight',{size:12}) + '</button></div>' +
-    (todayEntries.length === 0
-      ? '<div class="empty"><p class="empty__text">Nothing logged yet today.</p><button class="btn-ghost" style="margin-top:8px;font-weight:700;display:inline-flex;align-items:center;gap:4px" data-action="open-add-entry">Add the first entry ' + icon('ArrowRight',{size:16}) + '</button></div>'
-      : '<div class="stack-tight">' + todayEntries.map(function(e){ return entryRow(e); }).join('') + '</div>'
-    ) +
-  '</section>';
+  const todayHTML = todayEntries.length > 0 ? (
+    '<section class="section">' +
+    '<div class="section__head"><h2 class="section__title">Today<em>\'s</em> log</h2>' +
+    '<button class="section__link" data-action="nav" data-view="log">Full log ' + icon('ArrowRight',{size:11, stroke:2}) + '</button></div>' +
+    '<div class="stack-tight">' + todayEntries.map(function(e){ return entryRow(e); }).join('') + '</div>' +
+    '</section>'
+  ) : '';
 
-  return header({
-    title: greeting(),
-    subtitle: todayLabel(),
-    right: '<button class="btn-circle btn-circle--ghost" data-action="nav" data-view="categories" aria-label="Categories">' + icon('Settings',{size:20}) + '</button>',
-  }) + heroHTML + quickLogHTML + goalsHTML + todayHTML + fab();
+  return masthead + dateBlock + hintHTML + tilesHTML + todayHTML + goalsHTML + fab();
 }
 
 function viewLog() {
@@ -855,19 +1126,19 @@ function viewLog() {
   entries.forEach(function(e){ if (!groups[e.date]) groups[e.date] = []; groups[e.date].push(e); });
   const sortedDates = Object.keys(groups).sort(function(a,b){ return a < b ? 1 : -1; });
 
-  const filtersHTML = '<div class="section"><div class="chips chips--scroll">' +
-    '<button class="chip' + (STATE.filterCategoryId === null ? ' chip--active' : '') + '" data-action="set-filter" data-cat=""' + (STATE.filterCategoryId === null ? ' style="background:var(--brand-600)"' : '') + '>All</button>' +
+  const filtersHTML = '<div class="section" style="margin-top:12px"><div class="chips chips--scroll">' +
+    '<button class="chip' + (STATE.filterCategoryId === null ? ' chip--active' : '') + '" data-action="set-filter" data-cat=""' + (STATE.filterCategoryId === null ? ' style="background:var(--ink-800)"' : '') + '>All</button>' +
     STATE.data.categories.map(function(c){
       const active = STATE.filterCategoryId === c.id;
       const style = active ? ' style="background:' + c.color + '"' : '';
       return '<button class="chip' + (active ? ' chip--active' : '') + '" data-action="set-filter" data-cat="' + c.id + '"' + style + '>' +
-        '<span class="icon-flex">' + icon(c.icon, {size:14, stroke:2.2}) + '</span>' + escapeHTML(c.name) +
+        '<span class="icon-flex">' + icon(c.icon, {size:13, stroke:2}) + '</span>' + escapeHTML(c.name) +
       '</button>';
     }).join('') +
   '</div></div>';
 
   const listHTML = sortedDates.length === 0
-    ? '<div class="section"><div class="empty"><p class="empty__text">No entries yet.</p><button class="btn-ghost" style="margin-top:8px;font-weight:700" data-action="open-add-entry">Add your first entry</button></div></div>'
+    ? '<div class="section"><div class="empty"><div class="empty__icon">' + icon('ListChecks',{size:24, stroke:1.7}) + '</div><h3 class="empty__title">Nothing yet</h3><p class="empty__text">Start logging from the home screen.</p></div></div>'
     : '<div class="section">' + sortedDates.map(function(date){
         return '<div class="date-group"><h3 class="date-h">' + escapeHTML(formatDateHeader(date)) + '</h3>' +
           '<div class="stack-tight">' + groups[date].map(function(e){ return entryRow(e, {deletable:true}); }).join('') + '</div>' +
@@ -877,7 +1148,7 @@ function viewLog() {
   return header({
     title: 'Log',
     subtitle: "Everything you've tracked",
-    right: '<button class="btn-circle btn-circle--ghost" data-action="nav" data-view="categories" aria-label="Categories">' + icon('Settings',{size:20}) + '</button>',
+    right: '<button class="btn-circle btn-circle--ghost" data-action="nav" data-view="categories" aria-label="Categories">' + icon('Settings',{size:18, stroke:1.9}) + '</button>',
   }) + filtersHTML + listHTML + fab();
 }
 
@@ -888,20 +1159,20 @@ function viewGoals() {
   let body = '';
   if (active.length === 0 && archived.length === 0) {
     body = '<div class="section"><div class="empty">' +
-      '<div class="empty__icon">' + icon('Target',{size:28}) + '</div>' +
+      '<div class="empty__icon">' + icon('Target',{size:24, stroke:1.7}) + '</div>' +
       '<h3 class="empty__title">Set your first goal</h3>' +
       '<p class="empty__text">Track progress toward something you care about.</p>' +
-      '<button class="btn btn-primary" style="margin-top:16px" data-action="open-add-goal">' + icon('Plus',{size:16}) + ' New goal</button>' +
+      '<button class="btn btn-primary" style="margin-top:18px" data-action="open-add-goal">' + icon('Plus',{size:14, stroke:2.2}) + ' New goal</button>' +
       '</div></div>';
   } else {
     if (active.length) body += '<div class="section"><div class="stack-tight">' + active.map(goalRow).join('') + '</div></div>';
-    if (archived.length) body += '<div class="section"><h2 class="section__title" style="margin-bottom:8px;padding-left:4px">Archived</h2><div class="stack-tight" style="opacity:0.6">' + archived.map(goalRow).join('') + '</div></div>';
+    if (archived.length) body += '<div class="section"><h2 class="section__title" style="margin-bottom:10px;padding-left:4px"><em>Archived</em></h2><div class="stack-tight" style="opacity:0.6">' + archived.map(goalRow).join('') + '</div></div>';
   }
 
   return header({
     title: 'Goals',
     subtitle: "What you're working toward",
-    right: '<button class="btn-circle" data-action="open-add-goal" aria-label="New goal">' + icon('Plus',{size:20, stroke:2.6}) + '</button>',
+    right: '<button class="btn-circle" data-action="open-add-goal" aria-label="New goal">' + icon('Plus',{size:18, stroke:2.4}) + '</button>',
   }) + body;
 }
 
@@ -913,18 +1184,18 @@ function viewNotes() {
   });
   if (q) list = list.filter(function(n){ return n.title.toLowerCase().includes(q) || (n.body||'').toLowerCase().includes(q); });
 
-  const searchHTML = '<div class="section"><div class="search-wrap">' +
-    '<span class="icon-abs">' + icon('Search',{size:16}) + '</span>' +
+  const searchHTML = '<div class="section" style="margin-top:12px"><div class="search-wrap">' +
+    '<span class="icon-abs">' + icon('Search',{size:16, stroke:2}) + '</span>' +
     '<input class="input" id="note-search" type="text" placeholder="Search notes" value="' + escapeHTML(STATE.noteQuery) + '"/>' +
   '</div></div>';
 
   let body;
   if (list.length === 0) {
     body = '<div class="section"><div class="empty">' +
-      '<div class="empty__icon">' + icon('NotebookPen',{size:28}) + '</div>' +
+      '<div class="empty__icon">' + icon('NotebookPen',{size:24, stroke:1.7}) + '</div>' +
       '<h3 class="empty__title">' + (STATE.data.notes.length === 0 ? 'No notes yet' : 'No matches') + '</h3>' +
       '<p class="empty__text">' + (STATE.data.notes.length === 0 ? 'Jot down a thought, a quote, an idea.' : 'Try a different search term.') + '</p>' +
-      (STATE.data.notes.length === 0 ? '<button class="btn btn-primary" style="margin-top:16px" data-action="open-new-note">' + icon('Plus',{size:16}) + ' New note</button>' : '') +
+      (STATE.data.notes.length === 0 ? '<button class="btn btn-primary" style="margin-top:18px" data-action="open-new-note">' + icon('Plus',{size:14, stroke:2.2}) + ' New note</button>' : '') +
     '</div></div>';
   } else {
     body = '<div class="section"><div class="stack-tight">' + list.map(noteRow).join('') + '</div></div>';
@@ -933,7 +1204,7 @@ function viewNotes() {
   return header({
     title: 'Notes',
     subtitle: STATE.data.notes.length + ' ' + (STATE.data.notes.length === 1 ? 'note' : 'notes'),
-    right: '<button class="btn-circle" data-action="open-new-note" aria-label="New note">' + icon('Plus',{size:20, stroke:2.6}) + '</button>',
+    right: '<button class="btn-circle" data-action="open-new-note" aria-label="New note">' + icon('Plus',{size:18, stroke:2.4}) + '</button>',
   }) + searchHTML + body;
 }
 
@@ -943,13 +1214,16 @@ function viewCategories() {
 
   const list = STATE.data.categories.map(function(c){
     const count = entriesByCat[c.id] || 0;
+    const trackBit = c.trackValue
+      ? 'Default ' + (c.defaultValue || 1) + ' ' + escapeHTML(c.unit||'')
+      : 'Simple check-in';
     return '<button class="cat-list-item" data-action="edit-category" data-id="' + c.id + '">' +
-      '<div class="cat-list-item__icon" style="background:' + alpha(c.color, 0.12) + ';color:' + c.color + '">' + icon(c.icon, {size:22, stroke:2.2}) + '</div>' +
+      '<div class="cat-list-item__icon" style="background:' + alpha(c.color, 0.12) + ';color:' + c.color + '">' + icon(c.icon, {size:20, stroke:1.9}) + '</div>' +
       '<div class="cat-list-item__body">' +
         '<p class="cat-list-item__name">' + escapeHTML(c.name) + '</p>' +
-        '<p class="cat-list-item__sub">' + (c.trackValue ? 'Tracks ' + escapeHTML(c.unit||'value') : 'Simple check-in') + (count > 0 ? ' · ' + count + ' ' + (count === 1 ? 'entry' : 'entries') : '') + '</p>' +
+        '<p class="cat-list-item__sub">' + trackBit + (count > 0 ? ' · ' + count + ' ' + (count === 1 ? 'entry' : 'entries') : '') + '</p>' +
       '</div>' +
-      '<span class="cat-list-item__chev">' + icon('Pencil',{size:16}) + '</span>' +
+      '<span class="cat-list-item__chev">' + icon('Pencil',{size:14, stroke:2}) + '</span>' +
     '</button>';
   }).join('');
 
@@ -957,9 +1231,9 @@ function viewCategories() {
     title: 'Categories',
     subtitle: 'What you want to track',
     back: 'home',
-    right: '<button class="btn-circle" data-action="new-category" aria-label="New category">' + icon('Plus',{size:20, stroke:2.6}) + '</button>',
+    right: '<button class="btn-circle" data-action="new-category" aria-label="New category">' + icon('Plus',{size:18, stroke:2.4}) + '</button>',
   }) + '<div class="section"><div class="stack-tight">' + list + '</div>' +
-  '<button class="dashed-add" data-action="new-category">' + icon('Plus',{size:16}) + ' Add category</button>' +
+  '<button class="dashed-add" data-action="new-category">' + icon('Plus',{size:14, stroke:2.2}) + ' Add category</button>' +
   '</div>';
 }
 
@@ -967,9 +1241,9 @@ function viewCategories() {
    MODALS
    ============================================================ */
 function modalShell(title, body) {
-  return '<div class="modal-backdrop" data-action="close-modal-bg"><div class="modal" data-stop>' +
+  return '<div class="modal-backdrop" data-action="close-modal-bg"><div class="modal" data-stop="1">' +
     '<div class="modal__head"><h2 class="modal__title">' + escapeHTML(title) + '</h2>' +
-    '<button class="modal__close" data-action="close-modal" aria-label="Close">' + icon('X',{size:18}) + '</button></div>' +
+    '<button class="modal__close" data-action="close-modal" aria-label="Close">' + icon('X',{size:16, stroke:2.2}) + '</button></div>' +
     '<div class="modal__body">' + body + '</div></div></div>';
 }
 
@@ -980,13 +1254,13 @@ function modalAddEntry() {
     const active = c.id === d.categoryId;
     const style = active ? ' style="background:' + c.color + '"' : '';
     return '<button class="chip' + (active ? ' chip--active' : '') + '" data-action="set-add-cat" data-cat="' + c.id + '"' + style + '>' +
-      '<span class="icon-flex">' + icon(c.icon, {size:14, stroke:2.2}) + '</span>' + escapeHTML(c.name) +
+      '<span class="icon-flex">' + icon(c.icon, {size:13, stroke:2}) + '</span>' + escapeHTML(c.name) +
     '</button>';
   }).join('');
 
   const valueField = selectedCat && selectedCat.trackValue ? (
     '<div class="modal__field"><label class="label">How many ' + escapeHTML(selectedCat.unit || 'units') + '?</label>' +
-    '<input class="input input--big" id="entry-value" type="number" inputmode="decimal" placeholder="0" value="' + escapeHTML(d.value||'') + '"/></div>'
+    '<input class="input input--big" id="entry-value" type="number" inputmode="decimal" placeholder="' + (selectedCat.defaultValue || 0) + '" value="' + escapeHTML(d.value||'') + '"/></div>'
   ) : '';
 
   const body = '<div class="modal__field"><label class="label">Category</label><div class="chips">' + chips + '</div></div>' +
@@ -1003,12 +1277,12 @@ function modalAddEntry() {
 
 function modalAddGoal() {
   const d = STATE.modalData;
-  const catChips = '<button class="chip' + (d.categoryId === '' ? ' chip--active' : '') + '" data-action="set-goal-cat" data-cat=""' + (d.categoryId === '' ? ' style="background:var(--ink-900)"' : '') + '>None</button>' +
+  const catChips = '<button class="chip' + (d.categoryId === '' ? ' chip--active' : '') + '" data-action="set-goal-cat" data-cat=""' + (d.categoryId === '' ? ' style="background:var(--ink-800)"' : '') + '>None</button>' +
     STATE.data.categories.map(function(c){
       const active = d.categoryId === c.id;
       const style = active ? ' style="background:' + c.color + '"' : '';
       return '<button class="chip' + (active ? ' chip--active' : '') + '" data-action="set-goal-cat" data-cat="' + c.id + '"' + style + '>' +
-        '<span class="icon-flex">' + icon(c.icon, {size:14, stroke:2.2}) + '</span>' + escapeHTML(c.name) +
+        '<span class="icon-flex">' + icon(c.icon, {size:13, stroke:2}) + '</span>' + escapeHTML(c.name) +
       '</button>';
     }).join('');
 
@@ -1017,7 +1291,7 @@ function modalAddGoal() {
   }).join('');
 
   const body = '<div class="modal__field"><label class="label">Title</label>' +
-    '<input class="input" id="goal-title" type="text" placeholder="e.g., Run 30km this week" value="' + escapeHTML(d.title) + '"/></div>' +
+    '<input class="input" id="goal-title" type="text" placeholder="e.g., Run 30 km this week" value="' + escapeHTML(d.title) + '"/></div>' +
     '<div class="modal__field"><label class="label">Linked category <small>(optional)</small></label><div class="chips">' + catChips + '</div></div>' +
     '<div class="modal__field modal__row"><div><label class="label">Target</label><input class="input input--big" id="goal-target" type="number" inputmode="decimal" placeholder="0" value="' + escapeHTML(d.target) + '"/></div>' +
     '<div><label class="label">Unit</label><input class="input" id="goal-unit" type="text" placeholder="words" value="' + escapeHTML(d.unit) + '"/></div></div>' +
@@ -1030,10 +1304,10 @@ function modalAddGoal() {
 function modalEditNote() {
   const d = STATE.modalData;
   const isExisting = STATE.data.notes.some(function(n){ return n.id === d.id; });
-  const body = '<input class="input" id="note-title" type="text" placeholder="Title" value="' + escapeHTML(d.title) + '" style="background:transparent;border-radius:0;border-bottom:1px solid var(--ink-100);border-top:0;border-left:0;border-right:0;font-size:20px;font-weight:700;padding:8px 4px;margin-top:0"/>' +
-    '<textarea class="textarea" id="note-body" rows="10" placeholder="Start writing…" style="background:transparent;padding:8px 4px;line-height:1.6;margin-top:8px">' + escapeHTML(d.body) + '</textarea>' +
+  const body = '<input class="input" id="note-title" type="text" placeholder="Title" value="' + escapeHTML(d.title) + '" style="background:transparent;border-radius:0;border-bottom:1px solid var(--ink-100);border-top:0;border-left:0;border-right:0;font-family:var(--serif);font-size:24px;font-weight:500;letter-spacing:-0.02em;padding:8px 4px;margin-top:0"/>' +
+    '<textarea class="textarea" id="note-body" rows="10" placeholder="Start writing…" style="background:transparent;padding:12px 4px;line-height:1.65;margin-top:8px;font-size:15px;color:var(--ink-700)">' + escapeHTML(d.body) + '</textarea>' +
     '<div class="modal__footer">' +
-    (isExisting ? '<button class="btn-danger" style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px" data-action="delete-note" data-id="' + d.id + '">' + icon('Trash2',{size:16}) + ' Delete</button>' : '<span></span>') +
+    (isExisting ? '<button class="btn-danger" style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:13px" data-action="delete-note" data-id="' + d.id + '">' + icon('Trash2',{size:14, stroke:2}) + ' Delete</button>' : '<span></span>') +
     '<button class="btn btn-primary" data-action="close-modal">Save</button></div>';
   return modalShell(isExisting ? 'Edit note' : 'New note', body);
 }
@@ -1050,27 +1324,29 @@ function modalEditCategory() {
 
   const iconGrid = CATEGORY_ICONS.map(function(ic){
     const sel = ic === d.icon;
-    const style = sel ? ' style="background:' + d.color + ';color:white"' : '';
-    return '<button class="' + (sel ? 'active' : '') + '" data-action="set-cat-icon" data-icon="' + ic + '"' + style + '>' + icon(ic, {size:20, stroke:2.2}) + '</button>';
+    const style = sel ? ' style="background:' + d.color + ';color:#fdfbf6"' : '';
+    return '<button class="' + (sel ? 'active' : '') + '" data-action="set-cat-icon" data-icon="' + ic + '"' + style + '>' + icon(ic, {size:18, stroke:1.9}) + '</button>';
   }).join('');
 
-  const unitField = d.trackValue ? (
-    '<div class="modal__field"><label class="label">Unit <small>(words, minutes, pages…)</small></label>' +
-    '<input class="input" id="cat-unit" type="text" placeholder="minutes" value="' + escapeHTML(d.unit||'') + '"/></div>'
+  const valueFields = d.trackValue ? (
+    '<div class="modal__field modal__row">' +
+    '<div><label class="label">Unit</label><input class="input" id="cat-unit" type="text" placeholder="minutes" value="' + escapeHTML(d.unit||'') + '"/></div>' +
+    '<div><label class="label">Default <small>(one-tap)</small></label><input class="input" id="cat-default" type="number" inputmode="decimal" placeholder="30" value="' + escapeHTML(d.defaultValue || '') + '"/></div>' +
+    '</div>'
   ) : '';
 
-  const body = '<div class="preview"><div class="preview__icon" style="background:' + alpha(d.color, 0.15) + ';color:' + d.color + '">' + icon(d.icon, {size:24, stroke:2.2}) + '</div>' +
+  const body = '<div class="preview"><div class="preview__icon" style="background:' + alpha(d.color, 0.15) + ';color:' + d.color + '">' + icon(d.icon, {size:22, stroke:1.9}) + '</div>' +
     '<div><p class="preview__name">' + escapeHTML(d.name || 'Untitled') + '</p>' +
-    '<p class="preview__sub">' + (d.trackValue ? 'Tracks ' + escapeHTML(d.unit||'value') : 'Simple check-in') + '</p></div></div>' +
+    '<p class="preview__sub">' + (d.trackValue ? 'Default ' + (d.defaultValue || 0) + ' ' + escapeHTML(d.unit||'value') + ' per tap' : 'Simple check-in') + '</p></div></div>' +
     '<div class="modal__field"><label class="label">Name</label><input class="input" id="cat-name" type="text" placeholder="e.g., Meditation" value="' + escapeHTML(d.name) + '"/></div>' +
     '<div class="modal__field"><label class="label">Color</label><div class="swatches">' + swatches + '</div></div>' +
     '<div class="modal__field"><label class="label">Icon</label><div class="icongrid">' + iconGrid + '</div></div>' +
     '<div class="modal__field"><label class="label">Type</label><div class="toggle-grid">' +
     '<button class="' + (d.trackValue ? 'active' : '') + '" data-action="set-cat-type" data-type="value">Track a number</button>' +
     '<button class="' + (!d.trackValue ? 'active' : '') + '" data-action="set-cat-type" data-type="checkin">Just check in</button></div></div>' +
-    unitField +
+    valueFields +
     '<div class="modal__footer">' +
-    (isExisting ? '<button class="btn-danger" style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:14px" data-action="delete-category" data-id="' + d.id + '">' + icon('Trash2',{size:16}) + ' Delete</button>' : '<span></span>') +
+    (isExisting ? '<button class="btn-danger" style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:13px" data-action="delete-category" data-id="' + d.id + '">' + icon('Trash2',{size:14, stroke:2}) + ' Delete</button>' : '<span></span>') +
     '<button class="btn btn-primary" data-action="save-category">' + (isExisting ? 'Save changes' : 'Create category') + '</button></div>';
 
   return modalShell(isExisting ? 'Edit category' : 'New category', body);
@@ -1103,7 +1379,7 @@ function render() {
 }
 
 /* ============================================================
-   ACTIONS — note text saving
+   NOTE SAVE HELPERS
    ============================================================ */
 function readNoteFromInputs() {
   if (STATE.modal !== 'edit-note' || !STATE.modalData) return;
@@ -1118,7 +1394,7 @@ function saveCurrentNote() {
   const d = STATE.modalData;
   const title = (d.title || '').trim();
   const body  = (d.body  || '').trim();
-  if (!title && !body) return; // discard empty
+  if (!title && !body) return;
   const isExisting = STATE.data.notes.some(function(n){ return n.id === d.id; });
   const note = {
     id: d.id, title: title || 'Untitled', body: body,
@@ -1135,14 +1411,57 @@ function saveCurrentNote() {
 }
 
 /* ============================================================
+   QUICK LOG (one-tap)
+   ============================================================ */
+function quickLog(categoryId, tileEl) {
+  const cat = findCategory(categoryId);
+  if (!cat) return;
+  const value = cat.trackValue ? (cat.defaultValue || 1) : undefined;
+  const entry = {
+    id: uid(),
+    categoryId: cat.id,
+    date: todayISO(),
+    value: value,
+    createdAt: new Date().toISOString(),
+  };
+  STATE.data.entries = [entry].concat(STATE.data.entries);
+  STATE.lastEntryId = entry.id;
+  saveData();
+  // pulse the tile
+  if (tileEl) {
+    tileEl.classList.remove('pulse');
+    // force reflow
+    void tileEl.offsetWidth;
+    tileEl.classList.add('pulse');
+  }
+  // delay render slightly so the pulse can play before re-rendering wipes it
+  setTimeout(render, 300);
+  // show toast with undo
+  const valueLabel = cat.trackValue ? (value + ' ' + (cat.unit || '')) : 'check-in';
+  showToast(
+    '<div class="toast__dot" style="background:' + cat.color + '"></div>' +
+    '<div class="toast__msg"><strong>+' + escapeHTML(valueLabel) + '</strong> <span>· ' + escapeHTML(cat.name) + '</span></div>' +
+    '<button class="toast__action" data-action="undo-quick-log">Undo</button>',
+    { duration: 3500 }
+  );
+}
+
+/* ============================================================
    EVENT HANDLERS
    ============================================================ */
 document.addEventListener('click', function(ev) {
-  const target = ev.target.closest('[data-action]');
+  // honor data-stop="1" first so child buttons don't fall through to parent .tile
+  let stopEl = ev.target.closest('[data-stop]');
+  let target = ev.target.closest('[data-action]');
   if (!target) return;
+
+  // If we clicked a data-stop element, only honor its own action — don't bubble.
+  if (stopEl && stopEl !== target && stopEl.contains(target)) {
+    // ambiguous — proceed with target
+  }
+  // If target has a parent .tile and target itself has data-stop, prevent quick-log
   const action = target.dataset.action;
 
-  // close modal on backdrop click, ignore if clicking inside modal
   if (action === 'close-modal-bg') {
     if (ev.target === target) closeModal();
     return;
@@ -1156,14 +1475,31 @@ document.addEventListener('click', function(ev) {
     render(); return;
   }
 
+  if (action === 'quick-log') {
+    ev.preventDefault();
+    quickLog(target.dataset.cat, target);
+    return;
+  }
+  if (action === 'undo-quick-log') {
+    ev.stopPropagation();
+    if (STATE.lastEntryId) {
+      STATE.data.entries = STATE.data.entries.filter(function(e){ return e.id !== STATE.lastEntryId; });
+      STATE.lastEntryId = null;
+      saveData();
+      hideToast();
+      render();
+    }
+    return;
+  }
+
   if (action === 'open-add-entry') {
+    ev.stopPropagation();
     const catId = target.dataset.cat || STATE.filterCategoryId || (STATE.data.categories[0] && STATE.data.categories[0].id) || '';
     openModal('add-entry', { categoryId: catId, value: '', note: '', date: todayISO() });
     return;
   }
   if (action === 'set-add-cat') {
     if (STATE.modalData) { STATE.modalData.categoryId = target.dataset.cat; }
-    // capture current input values before rerender
     const v = document.getElementById('entry-value'); if (v) STATE.modalData.value = v.value;
     const n = document.getElementById('entry-note');  if (n) STATE.modalData.note  = n.value;
     const dt= document.getElementById('entry-date');  if (dt)STATE.modalData.date  = dt.value;
@@ -1180,9 +1516,11 @@ document.addEventListener('click', function(ev) {
     if (dt)d.date  = dt.value;
     const cat = findCategory(d.categoryId);
     if (!cat) return;
-    const numVal = d.value === '' || d.value == null ? undefined : Number(d.value);
+    let numVal = d.value === '' || d.value == null ? undefined : Number(d.value);
+    if (cat.trackValue && (numVal === undefined || isNaN(numVal))) {
+      numVal = cat.defaultValue || undefined;
+    }
     const trimmedNote = (d.note || '').trim();
-    if (cat.trackValue && (numVal === undefined || isNaN(numVal)) && !trimmedNote) return;
     const entry = {
       id: uid(),
       categoryId: cat.id,
@@ -1279,29 +1617,32 @@ document.addEventListener('click', function(ev) {
   if (action === 'new-category') {
     openModal('edit-category', { id: uid(), name:'', icon: CATEGORY_ICONS[0],
       color: CATEGORY_COLORS[Math.floor(Math.random()*CATEGORY_COLORS.length)],
-      unit:'', trackValue:true });
+      unit:'', defaultValue: '', trackValue:true });
     return;
   }
   if (action === 'edit-category') {
     const c = findCategory(target.dataset.id);
-    if (c) openModal('edit-category', Object.assign({}, c));
+    if (c) openModal('edit-category', Object.assign({ defaultValue: '' }, c));
     return;
   }
   if (action === 'set-cat-color') {
     const n = document.getElementById('cat-name'); if (n) STATE.modalData.name = n.value;
     const u = document.getElementById('cat-unit'); if (u) STATE.modalData.unit = u.value;
+    const dv= document.getElementById('cat-default'); if (dv) STATE.modalData.defaultValue = dv.value;
     STATE.modalData.color = target.dataset.color;
     render(); return;
   }
   if (action === 'set-cat-icon') {
     const n = document.getElementById('cat-name'); if (n) STATE.modalData.name = n.value;
     const u = document.getElementById('cat-unit'); if (u) STATE.modalData.unit = u.value;
+    const dv= document.getElementById('cat-default'); if (dv) STATE.modalData.defaultValue = dv.value;
     STATE.modalData.icon = target.dataset.icon;
     render(); return;
   }
   if (action === 'set-cat-type') {
     const n = document.getElementById('cat-name'); if (n) STATE.modalData.name = n.value;
     const u = document.getElementById('cat-unit'); if (u) STATE.modalData.unit = u.value;
+    const dv= document.getElementById('cat-default'); if (dv) STATE.modalData.defaultValue = dv.value;
     STATE.modalData.trackValue = target.dataset.type === 'value';
     render(); return;
   }
@@ -1309,11 +1650,14 @@ document.addEventListener('click', function(ev) {
     const d = STATE.modalData;
     const n = document.getElementById('cat-name'); if (n) d.name = n.value;
     const u = document.getElementById('cat-unit'); if (u) d.unit = u.value;
+    const dv= document.getElementById('cat-default'); if (dv) d.defaultValue = dv.value;
     const name = (d.name||'').trim();
     if (!name) return;
+    const defNum = d.defaultValue === '' || d.defaultValue == null ? undefined : Number(d.defaultValue);
     const next = {
       id: d.id, name: name, icon: d.icon, color: d.color,
       unit: d.trackValue ? ((d.unit||'').trim() || undefined) : undefined,
+      defaultValue: d.trackValue ? (isNaN(defNum) ? 1 : defNum) : undefined,
       trackValue: d.trackValue,
     };
     const exists = STATE.data.categories.some(function(c){ return c.id === d.id; });
@@ -1334,15 +1678,13 @@ document.addEventListener('click', function(ev) {
 document.addEventListener('input', function(ev) {
   if (ev.target && ev.target.id === 'note-search') {
     STATE.noteQuery = ev.target.value;
-    const list = document.querySelector('#app .section + .section');
-    // re-render only the notes list region by full render (cheap enough)
     render();
     const inp = document.getElementById('note-search');
     if (inp) { inp.focus(); inp.setSelectionRange(inp.value.length, inp.value.length); }
   }
 });
 
-/* persist note edits as the user types so closing modal saves them */
+/* persist note edits as the user types */
 document.addEventListener('input', function(ev) {
   if (STATE.modal !== 'edit-note' || !STATE.modalData) return;
   if (ev.target.id === 'note-title') STATE.modalData.title = ev.target.value;
@@ -1354,10 +1696,13 @@ window.addEventListener('hashchange', function() {
   render();
 });
 
-/* register service worker if present (for offline) */
+/* register service worker — network-first so reloads always get fresh */
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
-    navigator.serviceWorker.register('./sw.js').catch(function(){ /* fine, optional */ });
+    navigator.serviceWorker.register('./sw.js').then(function(reg) {
+      // poll for updates each time the page loads
+      if (reg && reg.update) reg.update();
+    }).catch(function(){});
   });
 }
 

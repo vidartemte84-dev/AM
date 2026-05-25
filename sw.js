@@ -1,8 +1,8 @@
-// Minimal service worker for offline support.
-// Caches the app shell on install and serves cache-first for navigation requests.
+// Network-first service worker so a plain reload always picks up the latest deploy.
+// Bump CACHE on every release to invalidate the offline shell.
 
-const CACHE = 'trace-v1';
-const ASSETS = [
+const CACHE = 'trace-v3';
+const SHELL = [
   './',
   './index.html',
   './manifest.webmanifest',
@@ -12,7 +12,7 @@ const ASSETS = [
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE).then((c) => c.addAll(ASSETS)).then(() => self.skipWaiting())
+    caches.open(CACHE).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting())
   );
 });
 
@@ -27,16 +27,17 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   if (req.method !== 'GET') return;
+  const url = new URL(req.url);
+  if (url.origin !== self.location.origin) return;
+
+  // Network-first for everything we serve, with cache as offline fallback.
   event.respondWith(
-    caches.match(req).then((cached) => {
-      const fetchPromise = fetch(req).then((res) => {
-        if (res && res.status === 200 && res.type === 'basic') {
-          const copy = res.clone();
-          caches.open(CACHE).then((c) => c.put(req, copy));
-        }
-        return res;
-      }).catch(() => cached);
-      return cached || fetchPromise;
-    })
+    fetch(req).then((res) => {
+      if (res && res.status === 200) {
+        const copy = res.clone();
+        caches.open(CACHE).then((c) => c.put(req, copy));
+      }
+      return res;
+    }).catch(() => caches.match(req).then((cached) => cached || caches.match('./')))
   );
 });
