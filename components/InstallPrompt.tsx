@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import { Download, X, Share, Plus } from 'lucide-react';
 
+const P = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
@@ -72,7 +74,7 @@ export function InstallPrompt() {
         <div className="bg-gray-900 text-white rounded-3xl p-5 shadow-2xl">
           <div className="flex items-start justify-between mb-3">
             <div className="flex items-center gap-3">
-              <img src="/icons/icon-72.png" alt="" className="w-10 h-10 rounded-xl" />
+              <img src={`${P}/icons/icon-72.png`} alt="" className="w-10 h-10 rounded-xl" />
               <div>
                 <p className="font-bold text-sm">Add Trace to Home Screen</p>
                 <p className="text-white/60 text-xs">Install for the full app experience</p>
@@ -101,7 +103,7 @@ export function InstallPrompt() {
   return (
     <div className="fixed bottom-24 left-4 right-4 z-50 max-w-[398px] mx-auto">
       <div className="bg-gray-900 text-white rounded-3xl p-4 shadow-2xl flex items-center gap-4">
-        <img src="/icons/icon-72.png" alt="" className="w-12 h-12 rounded-2xl flex-shrink-0" />
+        <img src={`${P}/icons/icon-72.png`} alt="" className="w-12 h-12 rounded-2xl flex-shrink-0" />
         <div className="flex-1 min-w-0">
           <p className="font-bold text-sm">Install Trace</p>
           <p className="text-white/60 text-xs">Add to your home screen for the full app experience</p>

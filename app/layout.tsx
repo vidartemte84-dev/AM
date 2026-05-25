@@ -3,6 +3,8 @@ import './globals.css';
 import { InstallPrompt } from '@/components/InstallPrompt';
 import { Navigation } from '@/components/Navigation';
 
+const P = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 export const metadata: Metadata = {
   title:       'Trace — Your Personal Log',
   description: 'A calm, simple place to log writing, workouts, goals, and notes.',
@@ -12,7 +14,14 @@ export const metadata: Metadata = {
     title:          'Trace',
   },
   formatDetection: { telephone: false },
-  manifest: '/manifest.webmanifest',
+  icons: {
+    icon: [
+      { url: `${P}/icons/icon-32.png`,  sizes: '32x32',   type: 'image/png' },
+      { url: `${P}/icons/icon-192.png`, sizes: '192x192', type: 'image/png' },
+    ],
+    apple:    `${P}/apple-touch-icon.png`,
+    shortcut: `${P}/favicon.png`,
+  },
 };
 
 export const viewport: Viewport = {
@@ -34,6 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
         />
         <meta name="mobile-web-app-capable" content="yes" />
+        <link rel="manifest" href={`${P}/manifest.webmanifest`} />
       </head>
       <body className="antialiased">
         <div className="app-container">

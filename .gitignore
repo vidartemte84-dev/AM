@@ -10,6 +10,15 @@
 /.next/
 /out/
 
+# generated at build time by scripts/gen-manifest.mjs and next-pwa
+/public/manifest.webmanifest
+/public/sw.js
+/public/sw.js.map
+/public/swe-worker-*.js
+/public/swe-worker-*.js.map
+/public/workbox-*.js
+/public/workbox-*.js.map
+
 # production
 /build
 

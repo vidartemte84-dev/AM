@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/gen-manifest.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build:mobile": "next build && cap sync",
-    "cap:ios": "next build && cap sync && cap open ios",
-    "cap:android": "next build && cap sync && cap open android",
+    "build:mobile": "npm run build && cap sync",
+    "cap:ios": "npm run build && cap sync && cap open ios",
+    "cap:android": "npm run build && cap sync && cap open android",
     "cap:sync": "cap sync"
   },
   "dependencies": {
