@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
-<title>Trace — Your Personal Log</title>
-<meta name="description" content="A calm, considered place to log writing, workouts, goals, and notes." />
+<title>Tune — Stay in Tune with Yourself</title>
+<meta name="description" content="Fine-tune your days. A boutique log for writing, workouts, goals, and notes." />
 <meta name="theme-color" content="#1a1a1a" />
 <meta name="mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-title" content="Trace" />
+<meta name="apple-mobile-web-app-title" content="Tune" />
 <meta name="apple-mobile-web-app-status-bar-style" content="default" />
 <link rel="manifest" href="./manifest.webmanifest" />
 <link rel="apple-touch-icon" href="./apple-touch-icon.png" />
@@ -107,10 +107,11 @@ a { color: inherit; text-decoration: none; }
 }
 .brand {
   font-family: var(--serif); font-style: italic; font-weight: 500;
-  font-size: 22px; letter-spacing: -0.01em;
+  font-size: 24px; letter-spacing: -0.02em;
   color: var(--ink-800);
+  line-height: 1;
 }
-.brand::after { content: '.'; color: var(--accent); }
+.brand::after { content: '.'; color: var(--accent); margin-left: -0.04em; }
 .masthead__right { display: flex; gap: 8px; align-items: center; }
 
 /* HEADER (page header for inner pages) */
@@ -906,7 +907,7 @@ function icon(name, opts) {
   opts = opts || {};
   const inner = ICONS[name] || ICONS.Circle;
   const size = opts.size || 24;
-  const stroke = opts.stroke || 1.75;
+  const stroke = opts.stroke || 1.4;
   const cls = opts.cls ? ' class="' + opts.cls + '"' : '';
   return '<svg' + cls + ' xmlns="http://www.w3.org/2000/svg" width="' + size + '" height="' + size + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="' + stroke + '" stroke-linecap="round" stroke-linejoin="round">' + inner + '</svg>';
 }
@@ -1149,7 +1150,7 @@ function categoryTile(c, todayStats) {
   const countBadge = hasToday && c.trackValue ? '<span class="tile__count">' + stats.count + '</span>' : '';
 
   return '<button class="tile" data-action="quick-log" data-cat="' + escapeHTML(c.id) + '" data-id="' + escapeHTML(c.id) + '">' +
-    '<div class="tile__icon" style="background:' + alpha(c.color, 0.12) + ';color:' + c.color + '">' + icon(c.icon, {size:20, stroke:1.9}) + '</div>' +
+    '<div class="tile__icon" style="background:' + alpha(c.color, 0.07) + ';color:' + c.color + '">' + icon(c.icon, {size:20, stroke:1.4}) + '</div>' +
     '<div>' +
       '<p class="tile__name">' + escapeHTML(c.name) + '</p>' +
       '<div class="tile__value">' + valueLine + '</div>' +
@@ -1173,9 +1174,9 @@ function entryRow(e, opts) {
     :
     (e.createdAt ? '<div class="entry__value"><span class="entry__time">' + escapeHTML(timeOfDay(e.createdAt)) + '</span></div>' : '');
   const noteHTML = e.note ? '<p class="entry__note">' + escapeHTML(e.note) + '</p>' : '';
-  const delBtn = opts.deletable ? '<button class="entry__delete" data-action="delete-entry" data-id="' + e.id + '" aria-label="Delete">' + icon('Trash2',{size:14, stroke:2}) + '</button>' : '';
+  const delBtn = opts.deletable ? '<button class="entry__delete" data-action="delete-entry" data-id="' + e.id + '" aria-label="Delete">' + icon('Trash2',{size:14, stroke:1.5}) + '</button>' : '';
   return '<div class="entry">' +
-    '<div class="entry__icon" style="background:' + alpha(c.color, 0.12) + ';color:' + c.color + '">' + icon(c.icon, {size:18, stroke:1.9}) + '</div>' +
+    '<div class="entry__icon" style="background:' + alpha(c.color, 0.07) + ';color:' + c.color + '">' + icon(c.icon, {size:18, stroke:1.4}) + '</div>' +
     '<div class="entry__body"><p class="entry__name">' + escapeHTML(c.name) + '</p>' + noteHTML + '</div>' +
     valueHTML +
     delBtn +
@@ -1190,7 +1191,7 @@ function goalRow(g) {
   const complete = progress >= g.target;
   const iconName = c ? c.icon : 'Target';
   return '<div class="goal">' +
-    '<div class="goal__icon" style="background:' + alpha(color, 0.12) + ';color:' + color + '">' + icon(iconName, {size:18, stroke:1.9}) + '</div>' +
+    '<div class="goal__icon" style="background:' + alpha(color, 0.07) + ';color:' + color + '">' + icon(iconName, {size:18, stroke:1.4}) + '</div>' +
     '<div class="goal__body">' +
       '<div class="goal__head"><div style="min-width:0">' +
         '<p class="goal__title">' + escapeHTML(g.title) + '</p>' +
@@ -1199,14 +1200,14 @@ function goalRow(g) {
       '<div class="bar"><div class="bar__fill" style="width:' + pct + '%;background:' + color + '"></div></div>' +
       '<div class="goal__actions">' +
         '<button data-action="archive-goal" data-id="' + g.id + '" style="color:var(--ink-500)">' + (g.archived ? 'Reactivate' : 'Archive') + '</button>' +
-        '<button data-action="delete-goal" data-id="' + g.id + '" style="color:var(--red);display:inline-flex;align-items:center;gap:4px">' + icon('Trash2',{size:13, stroke:2}) + 'Delete</button>' +
+        '<button data-action="delete-goal" data-id="' + g.id + '" style="color:var(--red);display:inline-flex;align-items:center;gap:4px">' + icon('Trash2',{size:13, stroke:1.5}) + 'Delete</button>' +
       '</div>' +
     '</div>' +
   '</div>';
 }
 
 function noteRow(n) {
-  const pin = n.pinned ? '<span class="icon-flex" style="color:var(--accent)">' + icon('Pin',{size:13, stroke:2}) + '</span>' : '';
+  const pin = n.pinned ? '<span class="icon-flex" style="color:var(--accent)">' + icon('Pin',{size:13, stroke:1.5}) + '</span>' : '';
   const excerpt = n.body ? '<p class="note__excerpt">' + escapeHTML(n.body) + '</p>' : '';
   return '<div class="note" data-action="edit-note" data-id="' + n.id + '">' +
     '<div class="note__body">' +
@@ -1215,13 +1216,13 @@ function noteRow(n) {
       '<p class="note__time">' + escapeHTML(formatTime(n.updatedAt)).toUpperCase() + '</p>' +
     '</div>' +
     '<button class="note__pin" data-action="toggle-pin" data-id="' + n.id + '" data-stop="1" aria-label="' + (n.pinned ? 'Unpin' : 'Pin') + '">' +
-      icon(n.pinned ? 'PinOff' : 'Pin', {size:15, stroke:1.9}) +
+      icon(n.pinned ? 'PinOff' : 'Pin', {size:15, stroke:1.4}) +
     '</button>' +
   '</div>';
 }
 
 function fab() {
-  return '<button class="fab" data-action="open-add-entry" aria-label="Add entry with details">' + icon('SlidersHorizontal',{size:20, stroke:2.2}) + '</button>';
+  return '<button class="fab" data-action="open-add-entry" aria-label="Add entry with details">' + icon('SlidersHorizontal',{size:20, stroke:1.6}) + '</button>';
 }
 
 function heatmap() {
@@ -1310,14 +1311,14 @@ function viewHome() {
   const activeGoals = STATE.data.goals.filter(function(g){ return !g.archived; }).slice(0, 3);
 
   const masthead = '<div class="masthead">' +
-    '<div class="brand">trace</div>' +
+    '<div class="brand">tune</div>' +
     '<div class="masthead__right">' +
-      '<button class="btn-circle btn-circle--ghost" data-action="nav" data-view="settings" aria-label="Settings">' + icon('Settings',{size:18, stroke:1.9}) + '</button>' +
+      '<button class="btn-circle btn-circle--ghost" data-action="nav" data-view="settings" aria-label="Settings">' + icon('Settings',{size:18, stroke:1.4}) + '</button>' +
     '</div>' +
   '</div>';
 
   const streakBit = streak > 0
-    ? '<span class="streak-pill">' + icon('Flame',{size:11, stroke:2.2}) + streak + '-day streak</span>'
+    ? '<span class="streak-pill">' + icon('Flame',{size:11, stroke:1.6}) + streak + '-day streak</span>'
     : '';
   const todayBit = todayEntries.length > 0
     ? '<span>' + todayEntries.length + ' entr' + (todayEntries.length === 1 ? 'y' : 'ies') + ' today</span>'
@@ -1333,7 +1334,7 @@ function viewHome() {
   '</section>';
 
   const hintHTML = STATE.data.entries.length === 0 ? (
-    '<div class="section" style="margin-top:18px"><div class="hint">' + icon('Info',{size:14, stroke:1.9}) +
+    '<div class="section" style="margin-top:18px"><div class="hint">' + icon('Info',{size:14, stroke:1.4}) +
     '<span><strong>Tap any tile</strong> to instantly log a default amount. Use the slider icon (bottom-right) for entries with details.</span></div></div>'
   ) : '';
 
@@ -1348,7 +1349,7 @@ function viewHome() {
   const goalsHTML = activeGoals.length > 0 ? (
     '<section class="section">' +
     '<div class="section__head"><h2 class="section__title"><em>In</em> progress</h2>' +
-    '<button class="section__link" data-action="nav" data-view="goals">All ' + icon('ArrowRight',{size:11, stroke:2}) + '</button></div>' +
+    '<button class="section__link" data-action="nav" data-view="goals">All ' + icon('ArrowRight',{size:11, stroke:1.5}) + '</button></div>' +
     '<div class="stack-tight">' + activeGoals.map(goalRow).join('') + '</div>' +
     '</section>'
   ) : '';
@@ -1356,7 +1357,7 @@ function viewHome() {
   const todayHTML = todayEntries.length > 0 ? (
     '<section class="section">' +
     '<div class="section__head"><h2 class="section__title">Today<em>\'s</em> log</h2>' +
-    '<button class="section__link" data-action="nav" data-view="log">Full log ' + icon('ArrowRight',{size:11, stroke:2}) + '</button></div>' +
+    '<button class="section__link" data-action="nav" data-view="log">Full log ' + icon('ArrowRight',{size:11, stroke:1.5}) + '</button></div>' +
     '<div class="stack-tight">' + todayEntries.map(function(e){ return entryRow(e); }).join('') + '</div>' +
     '</section>'
   ) : '';
@@ -1401,7 +1402,7 @@ function viewSettings() {
       '<div class="setting-group">' +
         '<button class="setting-row" data-action="nav" data-view="categories">' +
           '<div class="setting-row__label">Categories<div class="setting-row__sub">' + totalCats + ' active · tap to manage and reorder</div></div>' +
-          '<span class="setting-row__chev">' + icon('ChevronRight',{size:18, stroke:1.9}) + '</span>' +
+          '<span class="setting-row__chev">' + icon('ChevronRight',{size:18, stroke:1.4}) + '</span>' +
         '</button>' +
       '</div>' +
     '</div>' +
@@ -1410,11 +1411,11 @@ function viewSettings() {
       '<div class="setting-group">' +
         '<button class="setting-row" data-action="export-data">' +
           '<div class="setting-row__label">Export backup<div class="setting-row__sub">Download a JSON copy of everything.</div></div>' +
-          '<span class="setting-row__chev">' + icon('ArrowRight',{size:16, stroke:1.9}) + '</span>' +
+          '<span class="setting-row__chev">' + icon('ArrowRight',{size:16, stroke:1.4}) + '</span>' +
         '</button>' +
         '<button class="setting-row" data-action="import-data">' +
           '<div class="setting-row__label">Restore from backup<div class="setting-row__sub">Replace your data with a JSON file.</div></div>' +
-          '<span class="setting-row__chev">' + icon('ArrowRight',{size:16, stroke:1.9}) + '</span>' +
+          '<span class="setting-row__chev">' + icon('ArrowRight',{size:16, stroke:1.4}) + '</span>' +
         '</button>' +
         '<button class="setting-row" data-action="reset-data">' +
           '<div class="setting-row__label" style="color:var(--red)">Reset everything<div class="setting-row__sub" style="color:var(--red);opacity:0.7">Delete all entries, goals, and notes.</div></div>' +
@@ -1447,13 +1448,13 @@ function viewLog() {
       const active = STATE.filterCategoryId === c.id;
       const style = active ? ' style="background:' + c.color + '"' : '';
       return '<button class="chip' + (active ? ' chip--active' : '') + '" data-action="set-filter" data-cat="' + c.id + '"' + style + '>' +
-        '<span class="icon-flex">' + icon(c.icon, {size:13, stroke:2}) + '</span>' + escapeHTML(c.name) +
+        '<span class="icon-flex">' + icon(c.icon, {size:13, stroke:1.5}) + '</span>' + escapeHTML(c.name) +
       '</button>';
     }).join('') +
   '</div></div>';
 
   const listHTML = sortedDates.length === 0
-    ? '<div class="section"><div class="empty"><div class="empty__icon">' + icon('ListChecks',{size:24, stroke:1.7}) + '</div><h3 class="empty__title">Nothing yet</h3><p class="empty__text">Start logging from the home screen.</p></div></div>'
+    ? '<div class="section"><div class="empty"><div class="empty__icon">' + icon('ListChecks',{size:24, stroke:1.3}) + '</div><h3 class="empty__title">Nothing yet</h3><p class="empty__text">Start logging from the home screen.</p></div></div>'
     : '<div class="section">' + sortedDates.map(function(date){
         return '<div class="date-group"><h3 class="date-h">' + escapeHTML(formatDateHeader(date)) + '</h3>' +
           '<div class="stack-tight">' + groups[date].map(function(e){ return entryRow(e, {deletable:true}); }).join('') + '</div>' +
@@ -1463,7 +1464,7 @@ function viewLog() {
   return header({
     title: 'Log',
     subtitle: "Everything you've tracked",
-    right: '<button class="btn-circle btn-circle--ghost" data-action="nav" data-view="settings" aria-label="Settings">' + icon('Settings',{size:18, stroke:1.9}) + '</button>',
+    right: '<button class="btn-circle btn-circle--ghost" data-action="nav" data-view="settings" aria-label="Settings">' + icon('Settings',{size:18, stroke:1.4}) + '</button>',
   }) + filtersHTML + listHTML + fab();
 }
 
@@ -1474,10 +1475,10 @@ function viewGoals() {
   let body = '';
   if (active.length === 0 && archived.length === 0) {
     body = '<div class="section"><div class="empty">' +
-      '<div class="empty__icon">' + icon('Target',{size:24, stroke:1.7}) + '</div>' +
+      '<div class="empty__icon">' + icon('Target',{size:24, stroke:1.3}) + '</div>' +
       '<h3 class="empty__title">Set your first goal</h3>' +
       '<p class="empty__text">Track progress toward something you care about.</p>' +
-      '<button class="btn btn-primary" style="margin-top:18px" data-action="open-add-goal">' + icon('Plus',{size:14, stroke:2.2}) + ' New goal</button>' +
+      '<button class="btn btn-primary" style="margin-top:18px" data-action="open-add-goal">' + icon('Plus',{size:14, stroke:1.6}) + ' New goal</button>' +
       '</div></div>';
   } else {
     if (active.length) body += '<div class="section"><div class="stack-tight">' + active.map(goalRow).join('') + '</div></div>';
@@ -1487,7 +1488,7 @@ function viewGoals() {
   return header({
     title: 'Goals',
     subtitle: "What you're working toward",
-    right: '<button class="btn-circle" data-action="open-add-goal" aria-label="New goal">' + icon('Plus',{size:18, stroke:2.4}) + '</button>',
+    right: '<button class="btn-circle" data-action="open-add-goal" aria-label="New goal">' + icon('Plus',{size:18, stroke:1.8}) + '</button>',
   }) + body;
 }
 
@@ -1500,17 +1501,17 @@ function viewNotes() {
   if (q) list = list.filter(function(n){ return n.title.toLowerCase().includes(q) || (n.body||'').toLowerCase().includes(q); });
 
   const searchHTML = '<div class="section" style="margin-top:12px"><div class="search-wrap">' +
-    '<span class="icon-abs">' + icon('Search',{size:16, stroke:2}) + '</span>' +
+    '<span class="icon-abs">' + icon('Search',{size:16, stroke:1.5}) + '</span>' +
     '<input class="input" id="note-search" type="text" placeholder="Search notes" value="' + escapeHTML(STATE.noteQuery) + '"/>' +
   '</div></div>';
 
   let body;
   if (list.length === 0) {
     body = '<div class="section"><div class="empty">' +
-      '<div class="empty__icon">' + icon('NotebookPen',{size:24, stroke:1.7}) + '</div>' +
+      '<div class="empty__icon">' + icon('NotebookPen',{size:24, stroke:1.3}) + '</div>' +
       '<h3 class="empty__title">' + (STATE.data.notes.length === 0 ? 'No notes yet' : 'No matches') + '</h3>' +
       '<p class="empty__text">' + (STATE.data.notes.length === 0 ? 'Jot down a thought, a quote, an idea.' : 'Try a different search term.') + '</p>' +
-      (STATE.data.notes.length === 0 ? '<button class="btn btn-primary" style="margin-top:18px" data-action="open-new-note">' + icon('Plus',{size:14, stroke:2.2}) + ' New note</button>' : '') +
+      (STATE.data.notes.length === 0 ? '<button class="btn btn-primary" style="margin-top:18px" data-action="open-new-note">' + icon('Plus',{size:14, stroke:1.6}) + ' New note</button>' : '') +
     '</div></div>';
   } else {
     body = '<div class="section"><div class="stack-tight">' + list.map(noteRow).join('') + '</div></div>';
@@ -1519,7 +1520,7 @@ function viewNotes() {
   return header({
     title: 'Notes',
     subtitle: STATE.data.notes.length + ' ' + (STATE.data.notes.length === 1 ? 'note' : 'notes'),
-    right: '<button class="btn-circle" data-action="open-new-note" aria-label="New note">' + icon('Plus',{size:18, stroke:2.4}) + '</button>',
+    right: '<button class="btn-circle" data-action="open-new-note" aria-label="New note">' + icon('Plus',{size:18, stroke:1.8}) + '</button>',
   }) + searchHTML + body;
 }
 
@@ -1536,7 +1537,7 @@ function viewCategories() {
     const upDis  = i === 0          ? ' disabled' : '';
     const dnDis  = i === total - 1  ? ' disabled' : '';
     return '<div class="cat-list-item" data-action="edit-category" data-id="' + c.id + '">' +
-      '<div class="cat-list-item__icon" style="background:' + alpha(c.color, 0.12) + ';color:' + c.color + '">' + icon(c.icon, {size:20, stroke:1.9}) + '</div>' +
+      '<div class="cat-list-item__icon" style="background:' + alpha(c.color, 0.07) + ';color:' + c.color + '">' + icon(c.icon, {size:20, stroke:1.4}) + '</div>' +
       '<div class="cat-list-item__body">' +
         '<p class="cat-list-item__name">' + escapeHTML(c.name) + '</p>' +
         '<p class="cat-list-item__sub">' + trackBit + (count > 0 ? ' · ' + count + ' ' + (count === 1 ? 'entry' : 'entries') : '') + '</p>' +
@@ -1549,7 +1550,7 @@ function viewCategories() {
           '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
         '</button>' +
       '</div>' +
-      '<span class="cat-list-item__chev">' + icon('Pencil',{size:14, stroke:2}) + '</span>' +
+      '<span class="cat-list-item__chev">' + icon('Pencil',{size:14, stroke:1.5}) + '</span>' +
     '</div>';
   }).join('');
 
@@ -1557,9 +1558,9 @@ function viewCategories() {
     title: 'Categories',
     subtitle: 'Tap to edit · arrows to reorder',
     back: 'settings',
-    right: '<button class="btn-circle" data-action="new-category" aria-label="New category">' + icon('Plus',{size:18, stroke:2.4}) + '</button>',
+    right: '<button class="btn-circle" data-action="new-category" aria-label="New category">' + icon('Plus',{size:18, stroke:1.8}) + '</button>',
   }) + '<div class="section"><div class="stack-tight">' + list + '</div>' +
-  '<button class="dashed-add" data-action="new-category">' + icon('Plus',{size:14, stroke:2.2}) + ' Add category</button>' +
+  '<button class="dashed-add" data-action="new-category">' + icon('Plus',{size:14, stroke:1.6}) + ' Add category</button>' +
   '</div>';
 }
 
@@ -1569,7 +1570,7 @@ function viewCategories() {
 function modalShell(title, body) {
   return '<div class="modal-backdrop" data-action="close-modal-bg"><div class="modal" data-stop="1">' +
     '<div class="modal__head"><h2 class="modal__title">' + escapeHTML(title) + '</h2>' +
-    '<button class="modal__close" data-action="close-modal" aria-label="Close">' + icon('X',{size:16, stroke:2.2}) + '</button></div>' +
+    '<button class="modal__close" data-action="close-modal" aria-label="Close">' + icon('X',{size:16, stroke:1.6}) + '</button></div>' +
     '<div class="modal__body">' + body + '</div></div></div>';
 }
 
@@ -1580,7 +1581,7 @@ function modalAddEntry() {
     const active = c.id === d.categoryId;
     const style = active ? ' style="background:' + c.color + '"' : '';
     return '<button class="chip' + (active ? ' chip--active' : '') + '" data-action="set-add-cat" data-cat="' + c.id + '"' + style + '>' +
-      '<span class="icon-flex">' + icon(c.icon, {size:13, stroke:2}) + '</span>' + escapeHTML(c.name) +
+      '<span class="icon-flex">' + icon(c.icon, {size:13, stroke:1.5}) + '</span>' + escapeHTML(c.name) +
     '</button>';
   }).join('');
 
@@ -1608,7 +1609,7 @@ function modalAddGoal() {
       const active = d.categoryId === c.id;
       const style = active ? ' style="background:' + c.color + '"' : '';
       return '<button class="chip' + (active ? ' chip--active' : '') + '" data-action="set-goal-cat" data-cat="' + c.id + '"' + style + '>' +
-        '<span class="icon-flex">' + icon(c.icon, {size:13, stroke:2}) + '</span>' + escapeHTML(c.name) +
+        '<span class="icon-flex">' + icon(c.icon, {size:13, stroke:1.5}) + '</span>' + escapeHTML(c.name) +
       '</button>';
     }).join('');
 
@@ -1633,7 +1634,7 @@ function modalEditNote() {
   const body = '<input class="input" id="note-title" type="text" placeholder="Title" value="' + escapeHTML(d.title) + '" style="background:transparent;border-radius:0;border-bottom:1px solid var(--ink-100);border-top:0;border-left:0;border-right:0;font-family:var(--serif);font-size:24px;font-weight:500;letter-spacing:-0.02em;padding:8px 4px;margin-top:0"/>' +
     '<textarea class="textarea" id="note-body" rows="10" placeholder="Start writing…" style="background:transparent;padding:12px 4px;line-height:1.65;margin-top:8px;font-size:15px;color:var(--ink-700)">' + escapeHTML(d.body) + '</textarea>' +
     '<div class="modal__footer">' +
-    (isExisting ? '<button class="btn-danger" style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:13px" data-action="delete-note" data-id="' + d.id + '">' + icon('Trash2',{size:14, stroke:2}) + ' Delete</button>' : '<span></span>') +
+    (isExisting ? '<button class="btn-danger" style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:13px" data-action="delete-note" data-id="' + d.id + '">' + icon('Trash2',{size:14, stroke:1.5}) + ' Delete</button>' : '<span></span>') +
     '<button class="btn btn-primary" data-action="close-modal">Save</button></div>';
   return modalShell(isExisting ? 'Edit note' : 'New note', body);
 }
@@ -1651,7 +1652,7 @@ function modalEditCategory() {
   const iconGrid = CATEGORY_ICONS.map(function(ic){
     const sel = ic === d.icon;
     const style = sel ? ' style="background:' + d.color + ';color:var(--on-ink)"' : '';
-    return '<button class="' + (sel ? 'active' : '') + '" data-action="set-cat-icon" data-icon="' + ic + '"' + style + '>' + icon(ic, {size:18, stroke:1.9}) + '</button>';
+    return '<button class="' + (sel ? 'active' : '') + '" data-action="set-cat-icon" data-icon="' + ic + '"' + style + '>' + icon(ic, {size:18, stroke:1.4}) + '</button>';
   }).join('');
 
   const valueFields = d.trackValue ? (
@@ -1661,7 +1662,7 @@ function modalEditCategory() {
     '</div>'
   ) : '';
 
-  const body = '<div class="preview"><div class="preview__icon" style="background:' + alpha(d.color, 0.15) + ';color:' + d.color + '">' + icon(d.icon, {size:22, stroke:1.9}) + '</div>' +
+  const body = '<div class="preview"><div class="preview__icon" style="background:' + alpha(d.color, 0.10) + ';color:' + d.color + '">' + icon(d.icon, {size:22, stroke:1.4}) + '</div>' +
     '<div><p class="preview__name">' + escapeHTML(d.name || 'Untitled') + '</p>' +
     '<p class="preview__sub">' + (d.trackValue ? 'Default ' + (d.defaultValue || 0) + ' ' + escapeHTML(d.unit||'value') + ' per tap' : 'Simple check-in') + '</p></div></div>' +
     '<div class="modal__field"><label class="label">Name</label><input class="input" id="cat-name" type="text" placeholder="e.g., Meditation" value="' + escapeHTML(d.name) + '"/></div>' +
@@ -1672,7 +1673,7 @@ function modalEditCategory() {
     '<button class="' + (!d.trackValue ? 'active' : '') + '" data-action="set-cat-type" data-type="checkin">Just check in</button></div></div>' +
     valueFields +
     '<div class="modal__footer">' +
-    (isExisting ? '<button class="btn-danger" style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:13px" data-action="delete-category" data-id="' + d.id + '">' + icon('Trash2',{size:14, stroke:2}) + ' Delete</button>' : '<span></span>') +
+    (isExisting ? '<button class="btn-danger" style="display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:13px" data-action="delete-category" data-id="' + d.id + '">' + icon('Trash2',{size:14, stroke:1.5}) + ' Delete</button>' : '<span></span>') +
     '<button class="btn btn-primary" data-action="save-category">' + (isExisting ? 'Save changes' : 'Create category') + '</button></div>';
 
   return modalShell(isExisting ? 'Edit category' : 'New category', body);
