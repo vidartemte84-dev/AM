@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">AttachMatch</string>
-    <string name="title_activity_main">AttachMatch</string>
-    <string name="package_name">com.attachmatch.app</string>
-    <string name="custom_url_scheme">com.attachmatch.app</string>
-</resources>
