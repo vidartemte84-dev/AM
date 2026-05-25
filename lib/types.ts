@@ -1,54 +1,44 @@
-export type AttachmentStyle = 'secure' | 'anxious' | 'avoidant' | 'disorganized';
-
-export interface AttachmentResult {
-  style: AttachmentStyle;
-  scores: Record<AttachmentStyle, number>;
-  description: string;
-}
-
-export interface Prompt {
-  question: string;
-  answer: string;
-}
-
-export interface Profile {
+export type Category = {
   id: string;
   name: string;
-  age: number;
-  location: string;
-  photos: string[];
-  attachmentStyle: AttachmentStyle;
-  bio: string;
-  prompts: Prompt[];
-  interests: string[];
-  height?: string;
-  pronouns?: string;
-  job?: string;
-  education?: string;
-  compatibilityScore?: number;
-}
+  icon: string;          // lucide icon name
+  color: string;         // hex
+  unit?: string;         // 'words', 'minutes', 'pages', 'reps'
+  trackValue: boolean;   // does this category track a numeric value
+};
 
-export interface Match {
-  profile: Profile;
-  matchedAt: Date;
-  compatibilityScore: number;
-  isNew?: boolean;
-}
+export type LogEntry = {
+  id: string;
+  categoryId: string;
+  date: string;          // ISO yyyy-mm-dd
+  value?: number;
+  note?: string;
+  createdAt: string;     // full ISO
+};
 
-export interface UserProfile extends Profile {
-  quizAnswers?: number[];
-}
+export type Goal = {
+  id: string;
+  title: string;
+  categoryId?: string;
+  target: number;
+  unit: string;
+  period: 'day' | 'week' | 'month';
+  createdAt: string;
+  archived?: boolean;
+};
 
-export interface QuizQuestion {
-  id: number;
-  text: string;
-  category: 'anxious' | 'avoidant' | 'secure' | 'disorganized';
-  reverse?: boolean;
-}
+export type Note = {
+  id: string;
+  title: string;
+  body: string;
+  pinned?: boolean;
+  createdAt: string;
+  updatedAt: string;
+};
 
-export interface LikedItem {
-  profileId: string;
-  type: 'photo' | 'prompt';
-  index: number;
-  comment?: string;
-}
+export type AppData = {
+  categories: Category[];
+  entries: LogEntry[];
+  goals: Goal[];
+  notes: Note[];
+};

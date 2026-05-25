@@ -74,7 +74,7 @@ export function InstallPrompt() {
             <div className="flex items-center gap-3">
               <img src="/icons/icon-72.png" alt="" className="w-10 h-10 rounded-xl" />
               <div>
-                <p className="font-bold text-sm">Add AttachMatch to Home Screen</p>
+                <p className="font-bold text-sm">Add Trace to Home Screen</p>
                 <p className="text-white/60 text-xs">Install for the full app experience</p>
               </div>
             </div>
@@ -103,7 +103,7 @@ export function InstallPrompt() {
       <div className="bg-gray-900 text-white rounded-3xl p-4 shadow-2xl flex items-center gap-4">
         <img src="/icons/icon-72.png" alt="" className="w-12 h-12 rounded-2xl flex-shrink-0" />
         <div className="flex-1 min-w-0">
-          <p className="font-bold text-sm">Install AttachMatch</p>
+          <p className="font-bold text-sm">Install Trace</p>
           <p className="text-white/60 text-xs">Add to your home screen for the full app experience</p>
         </div>
         <div className="flex gap-2 flex-shrink-0">

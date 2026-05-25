@@ -1,29 +1,22 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 import { InstallPrompt } from '@/components/InstallPrompt';
+import { Navigation } from '@/components/Navigation';
 
 export const metadata: Metadata = {
-  title:        'AttachMatch — Find Your Secure Connection',
-  description:  'A dating app built around attachment theory. Discover your attachment style and match with compatible partners.',
+  title:       'Trace — Your Personal Log',
+  description: 'A calm, simple place to log writing, workouts, goals, and notes.',
   appleWebApp: {
-    capable:         true,
-    statusBarStyle:  'default',
-    title:           'AttachMatch',
+    capable:        true,
+    statusBarStyle: 'default',
+    title:          'Trace',
   },
   formatDetection: { telephone: false },
   manifest: '/manifest.webmanifest',
-  icons: {
-    icon:      [
-      { url: '/icons/icon-32.png',  sizes: '32x32',  type: 'image/png' },
-      { url: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
-    ],
-    apple:     '/apple-touch-icon.png',
-    shortcut:  '/favicon.png',
-  },
 };
 
 export const viewport: Viewport = {
-  themeColor:   '#be185d',
+  themeColor:   '#4f46e5',
   width:        'device-width',
   initialScale: 1,
   maximumScale: 1,
@@ -40,13 +33,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
           rel="stylesheet"
         />
-        {/* iOS PWA splash / status bar */}
         <meta name="mobile-web-app-capable" content="yes" />
       </head>
-      <body className="bg-brand-50 text-gray-900 antialiased">
-        <div className="app-container shadow-2xl">
+      <body className="antialiased">
+        <div className="app-container">
           {children}
         </div>
+        <Navigation />
         <InstallPrompt />
       </body>
     </html>

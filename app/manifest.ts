@@ -2,17 +2,17 @@ import type { MetadataRoute } from 'next';
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name:             'AttachMatch — Find Your Secure Connection',
-    short_name:       'AttachMatch',
-    description:      'A dating app built around attachment theory. Discover your attachment style and match with compatible partners.',
+    name:             'Trace — Your Personal Log',
+    short_name:       'Trace',
+    description:      'A calm, simple place to log writing, workouts, goals, and notes.',
     start_url:        '/',
     display:          'standalone',
-    background_color: '#fdf2f8',
-    theme_color:      '#be185d',
+    background_color: '#f8fafc',
+    theme_color:      '#4f46e5',
     orientation:      'portrait',
     scope:            '/',
     lang:             'en',
-    categories:       ['lifestyle', 'social'],
+    categories:       ['productivity', 'lifestyle'],
     icons: [
       { src: '/icons/icon-72.png',  sizes: '72x72',   type: 'image/png' },
       { src: '/icons/icon-96.png',  sizes: '96x96',   type: 'image/png' },
@@ -26,16 +26,9 @@ export default function manifest(): MetadataRoute.Manifest {
       { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
     ],
     shortcuts: [
-      {
-        name:      'Discover',
-        url:       '/discover',
-        icons:     [{ src: '/icons/icon-96.png', sizes: '96x96' }],
-      },
-      {
-        name:      'My Matches',
-        url:       '/matches',
-        icons:     [{ src: '/icons/icon-96.png', sizes: '96x96' }],
-      },
+      { name: 'Log',   url: '/log/',   icons: [{ src: '/icons/icon-96.png', sizes: '96x96' }] },
+      { name: 'Goals', url: '/goals/', icons: [{ src: '/icons/icon-96.png', sizes: '96x96' }] },
+      { name: 'Notes', url: '/notes/', icons: [{ src: '/icons/icon-96.png', sizes: '96x96' }] },
     ],
   };
 }
