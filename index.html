@@ -34,6 +34,7 @@
   --ink-900: #0c0a07;
   --brand: #1f1d1a;
   --brand-soft: #ece7d8;
+  --on-ink: var(--on-ink);
   --accent: #4f46e5;
   --accent-soft: #eef2ff;
   --red: #c2410c;
@@ -43,6 +44,33 @@
   --border: 1px solid rgba(37,33,26,0.08);
   --serif: 'Fraunces', 'Times New Roman', Georgia, serif;
   --sans:  'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+[data-theme="dark"] {
+  --bg: #100d09;
+  --bg-soft: #16120c;
+  --surface: #1c1812;
+  --paper: #221d15;
+  --ink-50:  #2b261d;
+  --ink-100: #34301f;
+  --ink-200: #4a4332;
+  --ink-300: #6f6650;
+  --ink-400: #968b6e;
+  --ink-500: #b7ad8e;
+  --ink-600: #d6cdaf;
+  --ink-700: #ebe3c8;
+  --ink-800: #f5efe0;
+  --ink-900: #fdf9ec;
+  --brand: #ebe3c8;
+  --brand-soft: #2b261d;
+  --on-ink: #100d09;
+  --accent: #818cf8;
+  --accent-soft: rgba(129,140,248,0.16);
+  --red: #f97316;
+  --shadow-card: 0 1px 0 rgba(0,0,0,0.4), 0 6px 20px rgba(0,0,0,0.18);
+  --shadow-pop:  0 1px 0 rgba(0,0,0,0.4), 0 20px 50px rgba(0,0,0,0.50);
+  --shadow-fab:  0 12px 30px rgba(0,0,0,0.55);
+  --border: 1px solid rgba(245,239,224,0.07);
 }
 
 * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -124,10 +152,10 @@ a { color: inherit; text-decoration: none; }
 .streak-pill {
   display: inline-flex; align-items: center; gap: 5px;
   padding: 3px 9px; border-radius: 999px;
-  background: var(--ink-800); color: #f5efe0;
+  background: var(--ink-800); color: var(--on-ink);
   font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
 }
-.streak-pill svg { color: #fca5a5; }
+.streak-pill svg { color: #f97316; }
 
 /* CARDS */
 .card {
@@ -141,7 +169,7 @@ a { color: inherit; text-decoration: none; }
 /* BUTTONS */
 .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 22px; border-radius: 14px; font-weight: 600; font-size: 14px; transition: transform 0.12s, background 0.15s; letter-spacing: -0.005em; }
 .btn:active { transform: scale(0.97); }
-.btn-primary { background: var(--ink-800); color: #fdfbf6; }
+.btn-primary { background: var(--ink-800); color: var(--on-ink); }
 .btn-primary:hover { background: var(--ink-900); }
 .btn-secondary { background: var(--ink-100); color: var(--ink-700); }
 .btn-ghost { color: var(--accent); font-weight: 600; }
@@ -149,7 +177,7 @@ a { color: inherit; text-decoration: none; }
 
 .btn-circle {
   width: 38px; height: 38px; border-radius: 50%;
-  background: var(--ink-800); color: #fdfbf6;
+  background: var(--ink-800); color: var(--on-ink);
   display: flex; align-items: center; justify-content: center;
   transition: transform 0.12s, background 0.15s;
 }
@@ -395,7 +423,7 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: -0.005em;
 }
 .chip:active { transform: scale(0.96); }
-.chip--active { border-color: transparent; color: #fdfbf6; }
+.chip--active { border-color: transparent; color: var(--on-ink); }
 
 /* MODAL */
 .modal-backdrop {
@@ -473,7 +501,7 @@ a { color: inherit; text-decoration: none; }
   right: 18px;
   width: 56px; height: 56px;
   border-radius: 50%;
-  background: var(--ink-800); color: #fdfbf6;
+  background: var(--ink-800); color: var(--on-ink);
   display: flex; align-items: center; justify-content: center;
   box-shadow: var(--shadow-fab);
   z-index: 30;
@@ -491,10 +519,10 @@ a { color: inherit; text-decoration: none; }
   transform: translateX(-50%);
   width: 100%;
   max-width: 480px;
-  background: rgba(247,244,236,0.86);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
-  border-top: 1px solid rgba(37,33,26,0.08);
+  border-top: var(--border);
   z-index: 40;
   padding-bottom: env(safe-area-inset-bottom, 0);
 }
@@ -538,7 +566,7 @@ a { color: inherit; text-decoration: none; }
 .toast {
   pointer-events: auto;
   background: var(--ink-800);
-  color: #fdfbf6;
+  color: var(--on-ink);
   border-radius: 14px;
   padding: 12px 14px 12px 16px;
   display: flex; align-items: center; gap: 14px;
@@ -551,13 +579,13 @@ a { color: inherit; text-decoration: none; }
 .toast.out { animation: toastOut 0.28s ease-in forwards; }
 .toast__dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 .toast__msg { flex: 1; min-width: 0; }
-.toast__msg strong { font-weight: 600; color: #fdfbf6; }
+.toast__msg strong { font-weight: 600; color: var(--on-ink); }
 .toast__msg span { color: rgba(253,251,246,0.7); }
 .toast__action {
   padding: 6px 10px;
   background: rgba(255,255,255,0.1);
   border-radius: 8px;
-  color: #fdfbf6;
+  color: var(--on-ink);
   font-weight: 600;
   font-size: 12px;
   transition: background 0.15s;
@@ -594,7 +622,7 @@ a { color: inherit; text-decoration: none; }
   transition: transform 0.1s;
 }
 .icongrid button:active { transform: scale(0.92); }
-.icongrid button.active { color: #fdfbf6; }
+.icongrid button.active { color: var(--on-ink); }
 
 /* TOGGLE */
 .toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
@@ -606,7 +634,7 @@ a { color: inherit; text-decoration: none; }
   transition: background 0.15s, color 0.15s;
 }
 .toggle-grid button.active, .period-grid button.active {
-  background: var(--ink-800); color: #fdfbf6;
+  background: var(--ink-800); color: var(--on-ink);
 }
 .period-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 8px; }
 
@@ -686,6 +714,134 @@ a { color: inherit; text-decoration: none; }
   margin-top: 12px;
 }
 .hint svg { color: var(--ink-400); flex-shrink: 0; margin-top: 1px; }
+
+/* HEATMAP — GitHub-style activity grid */
+.heatmap {
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 5px;
+  padding: 4px 0;
+}
+.heatmap__cell {
+  aspect-ratio: 1;
+  border-radius: 5px;
+  background: var(--ink-50);
+  transition: background 0.2s;
+  position: relative;
+}
+.heatmap__cell[data-level="0"] { background: var(--ink-50); }
+.heatmap__cell[data-level="1"] { background: color-mix(in srgb, var(--accent) 18%, var(--ink-50)); }
+.heatmap__cell[data-level="2"] { background: color-mix(in srgb, var(--accent) 38%, var(--ink-50)); }
+.heatmap__cell[data-level="3"] { background: color-mix(in srgb, var(--accent) 65%, var(--ink-50)); }
+.heatmap__cell[data-level="4"] { background: var(--accent); }
+.heatmap__cell[data-today="1"]::after {
+  content: ''; position: absolute; inset: -3px;
+  border-radius: 7px; border: 1.5px solid var(--ink-800);
+  pointer-events: none;
+}
+.heatmap__cell[data-future="1"] { background: transparent; border: 1px dashed var(--ink-200); }
+.heatmap__legend {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 10px; color: var(--ink-400);
+  font-weight: 500; letter-spacing: 0.02em;
+  margin-top: 10px;
+}
+.heatmap__legend-cells { display: flex; gap: 3px; }
+.heatmap__legend-cell { width: 9px; height: 9px; border-radius: 2px; }
+
+/* SETTINGS PAGE */
+.setting-section { margin-top: 24px; }
+.setting-section + .setting-section { margin-top: 28px; }
+.setting-section__title {
+  font-family: var(--serif); font-weight: 500; font-style: italic;
+  font-size: 13px; letter-spacing: -0.005em;
+  color: var(--ink-500);
+  margin: 0 0 8px 4px;
+  text-transform: lowercase;
+}
+.setting-group {
+  background: var(--surface);
+  border: var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+.setting-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 14px 16px;
+  width: 100%;
+  background: transparent;
+  text-align: left;
+  border: 0; cursor: pointer;
+  transition: background 0.15s;
+}
+.setting-row + .setting-row { border-top: var(--border); }
+.setting-row:hover { background: var(--ink-50); }
+.setting-row__label {
+  flex: 1; min-width: 0;
+  font-size: 14px; font-weight: 500;
+  color: var(--ink-800);
+}
+.setting-row__sub {
+  font-size: 12px; color: var(--ink-500);
+  font-weight: 400; margin-top: 2px;
+}
+.setting-row__value {
+  font-size: 13px; color: var(--ink-500);
+  display: flex; align-items: center; gap: 6px;
+  flex-shrink: 0;
+}
+.setting-row__chev { color: var(--ink-300); flex-shrink: 0; }
+
+.seg {
+  display: inline-flex;
+  background: var(--ink-50);
+  padding: 3px;
+  border-radius: 12px;
+  gap: 2px;
+}
+.seg__btn {
+  padding: 7px 12px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-500);
+  transition: all 0.15s;
+}
+.seg__btn--active {
+  background: var(--surface);
+  color: var(--ink-800);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+}
+
+.name-input {
+  display: block; width: 100%;
+  font-family: var(--sans);
+  background: transparent;
+  border: 0; outline: none;
+  font-size: 14px; color: var(--ink-800);
+  padding: 0;
+}
+.name-input::placeholder { color: var(--ink-400); }
+
+/* CATEGORY REORDER */
+.cat-list-item__reorder {
+  display: flex; flex-direction: column;
+  margin-right: -8px;
+}
+.cat-list-item__reorder button {
+  width: 30px; height: 22px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--ink-300);
+  border-radius: 6px;
+  transition: background 0.15s, color 0.15s;
+}
+.cat-list-item__reorder button:hover { background: var(--ink-100); color: var(--ink-700); }
+.cat-list-item__reorder button:disabled { opacity: 0.3; cursor: not-allowed; }
+
+/* FILE INPUT (hidden, triggered programmatically) */
+.hidden-file { position: absolute; left: -9999px; opacity: 0; }
 </style>
 </head>
 <body>
@@ -820,6 +976,19 @@ function greetingSerif() {
   const weekday = d.toLocaleDateString(undefined, { weekday:'long' });
   return weekday;
 }
+function timeGreeting() {
+  const h = new Date().getHours();
+  if (h < 5)  return 'Late night';
+  if (h < 12) return 'Good morning';
+  if (h < 17) return 'Good afternoon';
+  if (h < 22) return 'Good evening';
+  return 'Late night';
+}
+function personalGreeting() {
+  const name = ((STATE.data.profile && STATE.data.profile.name) || '').trim();
+  const tg = timeGreeting();
+  return name ? (tg + ', ' + name) : tg;
+}
 function dateSubtitle() {
   return new Date().toLocaleDateString(undefined, { month:'long', day:'numeric', year:'numeric' });
 }
@@ -827,20 +996,34 @@ function dateSubtitle() {
 /* ============================================================
    STATE / STORE
    ============================================================ */
+const DEFAULT_PROFILE = { name: '', theme: 'auto' };
+
 function loadData() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return { categories: DEFAULT_CATEGORIES, entries: [], goals: [], notes: [] };
+    if (!raw) return { profile: DEFAULT_PROFILE, categories: DEFAULT_CATEGORIES, entries: [], goals: [], notes: [] };
     const p = JSON.parse(raw);
     return {
+      profile:    Object.assign({}, DEFAULT_PROFILE, p.profile || {}),
       categories: (p.categories && p.categories.length) ? p.categories : DEFAULT_CATEGORIES,
       entries:    p.entries || [],
       goals:      p.goals   || [],
       notes:      p.notes   || [],
     };
   } catch(e) {
-    return { categories: DEFAULT_CATEGORIES, entries: [], goals: [], notes: [] };
+    return { profile: DEFAULT_PROFILE, categories: DEFAULT_CATEGORIES, entries: [], goals: [], notes: [] };
   }
+}
+
+function applyTheme() {
+  const t = (STATE.data.profile && STATE.data.profile.theme) || 'auto';
+  let dark = false;
+  if (t === 'dark') dark = true;
+  else if (t === 'auto') dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  // also tweak the iOS theme-color meta so the status bar matches
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute('content', dark ? '#100d09' : '#f7f4ec');
 }
 function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(STATE.data)); }
 
@@ -1041,6 +1224,64 @@ function fab() {
   return '<button class="fab" data-action="open-add-entry" aria-label="Add entry with details">' + icon('SlidersHorizontal',{size:20, stroke:2.2}) + '</button>';
 }
 
+function heatmap() {
+  const weeks = 6;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const todayMS = today.getTime();
+  const dayOfWeek = today.getDay(); // 0 = Sun
+  const start = new Date(today);
+  start.setDate(today.getDate() - dayOfWeek - (weeks - 1) * 7);
+
+  const counts = {};
+  STATE.data.entries.forEach(function(e){
+    counts[e.date] = (counts[e.date]||0) + 1;
+  });
+
+  function levelFor(n) {
+    if (n <= 0) return 0;
+    if (n === 1) return 1;
+    if (n === 2) return 2;
+    if (n <= 4) return 3;
+    return 4;
+  }
+
+  let cells = '';
+  for (let w = 0; w < weeks; w++) {
+    for (let d = 0; d < 7; d++) {
+      const date = new Date(start);
+      date.setDate(start.getDate() + w * 7 + d);
+      const iso = date.getFullYear() + '-' + String(date.getMonth()+1).padStart(2,'0') + '-' + String(date.getDate()).padStart(2,'0');
+      const ms = date.getTime();
+      const future = ms > todayMS ? '1' : '';
+      const istoday = ms === todayMS ? '1' : '';
+      const n = counts[iso] || 0;
+      const level = future ? '' : levelFor(n);
+      cells += '<div class="heatmap__cell" data-level="' + level + '" data-future="' + future + '" data-today="' + istoday + '" title="' + iso + ' · ' + n + ' entr' + (n === 1 ? 'y' : 'ies') + '"></div>';
+    }
+  }
+
+  const totalDays = Object.keys(counts).length;
+  const totalEntries = STATE.data.entries.length;
+  const monthLabel = today.toLocaleDateString(undefined, { month:'long' });
+
+  return '<section class="section">' +
+    '<div class="section__head">' +
+      '<h2 class="section__title"><em>Last six</em> weeks</h2>' +
+      '<span class="section__link" style="color:var(--ink-400);cursor:default">' + totalDays + ' active days</span>' +
+    '</div>' +
+    '<div class="card" style="background:var(--paper);padding:18px">' +
+      '<div class="heatmap">' + cells + '</div>' +
+      '<div class="heatmap__legend"><span>less</span><div class="heatmap__legend-cells">' +
+        '<div class="heatmap__legend-cell" style="background:var(--ink-50)"></div>' +
+        '<div class="heatmap__legend-cell" style="background:color-mix(in srgb, var(--accent) 18%, var(--ink-50))"></div>' +
+        '<div class="heatmap__legend-cell" style="background:color-mix(in srgb, var(--accent) 38%, var(--ink-50))"></div>' +
+        '<div class="heatmap__legend-cell" style="background:color-mix(in srgb, var(--accent) 65%, var(--ink-50))"></div>' +
+        '<div class="heatmap__legend-cell" style="background:var(--accent)"></div>' +
+      '</div><span>more</span><span style="margin-left:auto">' + totalEntries + ' total entries</span></div>' +
+    '</div>' +
+  '</section>';
+}
+
 function nav() {
   const items = [
     { v:'home',  i:'Home',        l:'Home' },
@@ -1071,7 +1312,7 @@ function viewHome() {
   const masthead = '<div class="masthead">' +
     '<div class="brand">trace</div>' +
     '<div class="masthead__right">' +
-      '<button class="btn-circle btn-circle--ghost" data-action="nav" data-view="categories" aria-label="Categories">' + icon('Settings',{size:18, stroke:1.9}) + '</button>' +
+      '<button class="btn-circle btn-circle--ghost" data-action="nav" data-view="settings" aria-label="Settings">' + icon('Settings',{size:18, stroke:1.9}) + '</button>' +
     '</div>' +
   '</div>';
 
@@ -1081,8 +1322,13 @@ function viewHome() {
   const todayBit = todayEntries.length > 0
     ? '<span>' + todayEntries.length + ' entr' + (todayEntries.length === 1 ? 'y' : 'ies') + ' today</span>'
     : '<span style="color:var(--ink-400)">Tap a tile to log</span>';
+  const profileName = ((STATE.data.profile && STATE.data.profile.name) || '').trim();
+  const hello = profileName
+    ? '<p style="font-size:12px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-400);margin:18px 0 0">' + escapeHTML(timeGreeting()) + ', ' + escapeHTML(profileName) + '</p>'
+    : '';
   const dateBlock = '<section class="date-block">' +
-    '<h1 class="date-block__day"><em>' + escapeHTML(greetingSerif()) + '</em></h1>' +
+    hello +
+    '<h1 class="date-block__day"' + (profileName ? ' style="margin-top:4px"' : '') + '><em>' + escapeHTML(greetingSerif()) + '</em></h1>' +
     '<p class="date-block__sub">' + escapeHTML(dateSubtitle()) + (streakBit ? '<span class="dot"></span>' + streakBit : '') + (todayEntries.length === 0 ? '<span class="dot"></span>' + todayBit : '') + '</p>' +
   '</section>';
 
@@ -1115,7 +1361,76 @@ function viewHome() {
     '</section>'
   ) : '';
 
-  return masthead + dateBlock + hintHTML + tilesHTML + todayHTML + goalsHTML + fab();
+  const heatmapHTML = STATE.data.entries.length > 0 ? heatmap() : '';
+
+  return masthead + dateBlock + hintHTML + tilesHTML + todayHTML + heatmapHTML + goalsHTML + fab();
+}
+
+function viewSettings() {
+  const profile = STATE.data.profile || DEFAULT_PROFILE;
+  const themeSeg = ['auto','light','dark'].map(function(t){
+    return '<button class="seg__btn' + (profile.theme === t ? ' seg__btn--active' : '') + '" data-action="set-theme" data-theme="' + t + '">' + t.charAt(0).toUpperCase() + t.slice(1) + '</button>';
+  }).join('');
+
+  const totalEntries = STATE.data.entries.length;
+  const totalCats    = STATE.data.categories.length;
+  const totalNotes   = STATE.data.notes.length;
+  const totalGoals   = STATE.data.goals.length;
+
+  const body =
+    '<div class="setting-section">' +
+      '<h3 class="setting-section__title">your profile</h3>' +
+      '<div class="setting-group">' +
+        '<label class="setting-row" style="cursor:default">' +
+          '<div class="setting-row__label">Name<div class="setting-row__sub">Used for your greeting on the home screen.</div></label>' +
+          '<input class="name-input" id="profile-name" type="text" placeholder="Add your name" value="' + escapeHTML(profile.name||'') + '" style="max-width:50%;text-align:right"/>' +
+        '</label>' +
+      '</div>' +
+    '</div>' +
+    '<div class="setting-section">' +
+      '<h3 class="setting-section__title">appearance</h3>' +
+      '<div class="setting-group">' +
+        '<div class="setting-row" style="cursor:default">' +
+          '<div class="setting-row__label">Theme<div class="setting-row__sub">Auto follows your device.</div></div>' +
+          '<div class="seg">' + themeSeg + '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+    '<div class="setting-section">' +
+      '<h3 class="setting-section__title">tracking</h3>' +
+      '<div class="setting-group">' +
+        '<button class="setting-row" data-action="nav" data-view="categories">' +
+          '<div class="setting-row__label">Categories<div class="setting-row__sub">' + totalCats + ' active · tap to manage and reorder</div></div>' +
+          '<span class="setting-row__chev">' + icon('ChevronRight',{size:18, stroke:1.9}) + '</span>' +
+        '</button>' +
+      '</div>' +
+    '</div>' +
+    '<div class="setting-section">' +
+      '<h3 class="setting-section__title">your data</h3>' +
+      '<div class="setting-group">' +
+        '<button class="setting-row" data-action="export-data">' +
+          '<div class="setting-row__label">Export backup<div class="setting-row__sub">Download a JSON copy of everything.</div></div>' +
+          '<span class="setting-row__chev">' + icon('ArrowRight',{size:16, stroke:1.9}) + '</span>' +
+        '</button>' +
+        '<button class="setting-row" data-action="import-data">' +
+          '<div class="setting-row__label">Restore from backup<div class="setting-row__sub">Replace your data with a JSON file.</div></div>' +
+          '<span class="setting-row__chev">' + icon('ArrowRight',{size:16, stroke:1.9}) + '</span>' +
+        '</button>' +
+        '<button class="setting-row" data-action="reset-data">' +
+          '<div class="setting-row__label" style="color:var(--red)">Reset everything<div class="setting-row__sub" style="color:var(--red);opacity:0.7">Delete all entries, goals, and notes.</div></div>' +
+        '</button>' +
+      '</div>' +
+      '<p style="font-size:11px;color:var(--ink-400);margin:10px 4px 0;line-height:1.55">' +
+        totalEntries + ' entries · ' + totalGoals + ' goals · ' + totalNotes + ' notes · stored locally on this device only.' +
+      '</p>' +
+    '</div>' +
+    '<input type="file" id="import-file" class="hidden-file" accept="application/json,.json" />';
+
+  return header({
+    title: 'Settings',
+    subtitle: 'Make Trace yours',
+    back: 'home',
+  }) + '<div class="section">' + body + '</div>';
 }
 
 function viewLog() {
@@ -1148,7 +1463,7 @@ function viewLog() {
   return header({
     title: 'Log',
     subtitle: "Everything you've tracked",
-    right: '<button class="btn-circle btn-circle--ghost" data-action="nav" data-view="categories" aria-label="Categories">' + icon('Settings',{size:18, stroke:1.9}) + '</button>',
+    right: '<button class="btn-circle btn-circle--ghost" data-action="nav" data-view="settings" aria-label="Settings">' + icon('Settings',{size:18, stroke:1.9}) + '</button>',
   }) + filtersHTML + listHTML + fab();
 }
 
@@ -1212,25 +1527,36 @@ function viewCategories() {
   const entriesByCat = {};
   STATE.data.entries.forEach(function(e){ entriesByCat[e.categoryId] = (entriesByCat[e.categoryId]||0) + 1; });
 
-  const list = STATE.data.categories.map(function(c){
+  const total = STATE.data.categories.length;
+  const list = STATE.data.categories.map(function(c, i){
     const count = entriesByCat[c.id] || 0;
     const trackBit = c.trackValue
       ? 'Default ' + (c.defaultValue || 1) + ' ' + escapeHTML(c.unit||'')
       : 'Simple check-in';
-    return '<button class="cat-list-item" data-action="edit-category" data-id="' + c.id + '">' +
+    const upDis  = i === 0          ? ' disabled' : '';
+    const dnDis  = i === total - 1  ? ' disabled' : '';
+    return '<div class="cat-list-item" data-action="edit-category" data-id="' + c.id + '">' +
       '<div class="cat-list-item__icon" style="background:' + alpha(c.color, 0.12) + ';color:' + c.color + '">' + icon(c.icon, {size:20, stroke:1.9}) + '</div>' +
       '<div class="cat-list-item__body">' +
         '<p class="cat-list-item__name">' + escapeHTML(c.name) + '</p>' +
         '<p class="cat-list-item__sub">' + trackBit + (count > 0 ? ' · ' + count + ' ' + (count === 1 ? 'entry' : 'entries') : '') + '</p>' +
       '</div>' +
+      '<div class="cat-list-item__reorder" data-stop="1">' +
+        '<button data-action="move-category" data-id="' + c.id + '" data-dir="up" data-stop="1"' + upDis + ' aria-label="Move up">' +
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>' +
+        '</button>' +
+        '<button data-action="move-category" data-id="' + c.id + '" data-dir="down" data-stop="1"' + dnDis + ' aria-label="Move down">' +
+          '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>' +
+        '</button>' +
+      '</div>' +
       '<span class="cat-list-item__chev">' + icon('Pencil',{size:14, stroke:2}) + '</span>' +
-    '</button>';
+    '</div>';
   }).join('');
 
   return header({
     title: 'Categories',
-    subtitle: 'What you want to track',
-    back: 'home',
+    subtitle: 'Tap to edit · arrows to reorder',
+    back: 'settings',
     right: '<button class="btn-circle" data-action="new-category" aria-label="New category">' + icon('Plus',{size:18, stroke:2.4}) + '</button>',
   }) + '<div class="section"><div class="stack-tight">' + list + '</div>' +
   '<button class="dashed-add" data-action="new-category">' + icon('Plus',{size:14, stroke:2.2}) + ' Add category</button>' +
@@ -1324,7 +1650,7 @@ function modalEditCategory() {
 
   const iconGrid = CATEGORY_ICONS.map(function(ic){
     const sel = ic === d.icon;
-    const style = sel ? ' style="background:' + d.color + ';color:#fdfbf6"' : '';
+    const style = sel ? ' style="background:' + d.color + ';color:var(--on-ink)"' : '';
     return '<button class="' + (sel ? 'active' : '') + '" data-action="set-cat-icon" data-icon="' + ic + '"' + style + '>' + icon(ic, {size:18, stroke:1.9}) + '</button>';
   }).join('');
 
@@ -1362,6 +1688,7 @@ function render() {
     case 'goals':      viewHTML = viewGoals(); break;
     case 'notes':      viewHTML = viewNotes(); break;
     case 'categories': viewHTML = viewCategories(); break;
+    case 'settings':   viewHTML = viewSettings(); break;
     case 'home':
     default:           STATE.view = 'home'; viewHTML = viewHome(); break;
   }
@@ -1672,6 +1999,100 @@ document.addEventListener('click', function(ev) {
     STATE.modal = null; STATE.modalData = null;
     render(); return;
   }
+  if (action === 'move-category') {
+    ev.stopPropagation();
+    const id = target.dataset.id;
+    const dir = target.dataset.dir;
+    const i = STATE.data.categories.findIndex(function(c){ return c.id === id; });
+    if (i < 0) return;
+    const j = dir === 'up' ? i - 1 : i + 1;
+    if (j < 0 || j >= STATE.data.categories.length) return;
+    const arr = STATE.data.categories.slice();
+    const tmp = arr[i]; arr[i] = arr[j]; arr[j] = tmp;
+    STATE.data.categories = arr;
+    saveData(); render(); return;
+  }
+
+  /* SETTINGS */
+  if (action === 'set-theme') {
+    STATE.data.profile = Object.assign({}, STATE.data.profile || DEFAULT_PROFILE, { theme: target.dataset.theme });
+    saveData();
+    applyTheme();
+    render();
+    return;
+  }
+  if (action === 'export-data') {
+    const blob = new Blob([JSON.stringify(STATE.data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const stamp = new Date().toISOString().slice(0,10);
+    a.href = url; a.download = 'trace-backup-' + stamp + '.json';
+    document.body.appendChild(a); a.click(); document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+    showToast(
+      '<div class="toast__dot" style="background:#10b981"></div>' +
+      '<div class="toast__msg"><strong>Backup saved</strong> <span>· check your downloads</span></div>',
+      { duration: 2800 }
+    );
+    return;
+  }
+  if (action === 'import-data') {
+    const inp = document.getElementById('import-file');
+    if (inp) inp.click();
+    return;
+  }
+  if (action === 'reset-data') {
+    if (!confirm('Reset all entries, goals, notes, and categories? This cannot be undone.')) return;
+    STATE.data = { profile: STATE.data.profile, categories: DEFAULT_CATEGORIES, entries: [], goals: [], notes: [] };
+    saveData(); render();
+    showToast(
+      '<div class="toast__dot" style="background:var(--red)"></div>' +
+      '<div class="toast__msg"><strong>Reset complete</strong> <span>· starting fresh</span></div>',
+      { duration: 2500 }
+    );
+    return;
+  }
+});
+
+/* import file handler */
+document.addEventListener('change', function(ev) {
+  if (ev.target && ev.target.id === 'import-file') {
+    const file = ev.target.files && ev.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function() {
+      try {
+        const parsed = JSON.parse(reader.result);
+        if (typeof parsed !== 'object' || !parsed) throw new Error('bad shape');
+        STATE.data = {
+          profile:    Object.assign({}, DEFAULT_PROFILE, parsed.profile || STATE.data.profile),
+          categories: (parsed.categories && parsed.categories.length) ? parsed.categories : DEFAULT_CATEGORIES,
+          entries:    Array.isArray(parsed.entries) ? parsed.entries : [],
+          goals:      Array.isArray(parsed.goals)   ? parsed.goals   : [],
+          notes:      Array.isArray(parsed.notes)   ? parsed.notes   : [],
+        };
+        saveData(); applyTheme(); render();
+        showToast(
+          '<div class="toast__dot" style="background:#10b981"></div>' +
+          '<div class="toast__msg"><strong>Restored</strong> <span>· ' + STATE.data.entries.length + ' entries loaded</span></div>',
+          { duration: 2800 }
+        );
+      } catch(e) {
+        alert('That doesn\'t look like a valid Trace backup file.');
+      }
+    };
+    reader.readAsText(file);
+    ev.target.value = '';
+  }
+});
+
+/* live save profile name as user types */
+document.addEventListener('input', function(ev) {
+  if (ev.target && ev.target.id === 'profile-name') {
+    STATE.data.profile = Object.assign({}, STATE.data.profile || DEFAULT_PROFILE, { name: ev.target.value });
+    saveData();
+    // don't re-render on every keystroke; user is still typing
+  }
 });
 
 /* live search on notes */
@@ -1696,16 +2117,26 @@ window.addEventListener('hashchange', function() {
   render();
 });
 
+/* react to OS theme changes when user is on 'auto' */
+if (window.matchMedia) {
+  const mq = window.matchMedia('(prefers-color-scheme: dark)');
+  const onChange = function() {
+    if (!STATE.data.profile || STATE.data.profile.theme === 'auto') applyTheme();
+  };
+  if (mq.addEventListener) mq.addEventListener('change', onChange);
+  else if (mq.addListener) mq.addListener(onChange);
+}
+
 /* register service worker — network-first so reloads always get fresh */
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function() {
     navigator.serviceWorker.register('./sw.js').then(function(reg) {
-      // poll for updates each time the page loads
       if (reg && reg.update) reg.update();
     }).catch(function(){});
   });
 }
 
+applyTheme();
 render();
 </script>
 </body>
